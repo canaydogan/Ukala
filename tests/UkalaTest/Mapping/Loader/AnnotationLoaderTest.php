@@ -47,7 +47,7 @@ class AnnotationLoaderTest extends TestCase
         );
     }
 
-    public function testLoaderForClassValidators()
+    public function testLoadClassMetadataWithClassValidators()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
         $this->assertEquals(0, count($classMetadata->getValidators()));
@@ -55,7 +55,7 @@ class AnnotationLoaderTest extends TestCase
         $this->assertEquals(1, count($classMetadata->getValidators()));
     }
 
-    public function testLoaderForPropertyValidators()
+    public function testLoadClassMetadataWithPropertyValidators()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
         $this->_annotationLoader->loadClassMetadata($classMetadata);
@@ -64,13 +64,51 @@ class AnnotationLoaderTest extends TestCase
         $this->assertEquals(2, count($property->getValidators()));
     }
 
-    public function testLoaderForMethodValidators()
+    public function testLoadClassMetadataForMethodValidators()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
         $this->_annotationLoader->loadClassMetadata($classMetadata);
         $members = $classMetadata->getMembers();
-        $property = $members['isPasswordConfirmed'][0];
-        $this->assertEquals(1, count($property->getValidators()));
+        $method = $members['isPasswordConfirmed'][0];
+        $this->assertEquals(1, count($method->getValidators()));
+    }
+
+    public function testIsFilterWithInvalidValue()
+    {
+        $this->assertFalse($this->_annotationLoader->isFilter(null));
+    }
+
+    public function testIsFilterWithValidFilter()
+    {
+        $this->assertTrue($this->_annotationLoader->isFilter(
+            $this->getIntFilter()
+        ));
+    }
+
+    public function testLoadClassMetadataWithClassFilters()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->assertEquals(0, count($classMetadata->getFilters()));
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $this->assertEquals(1, count($classMetadata->getFilters()));
+    }
+
+    public function testLoadClassMetadataWithPropertyFilters()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $property = $members['_name'][0];
+        $this->assertCount(1, $property->getFilters());
+    }
+
+    public function testLoadClassMetadataWithMethodFilters()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $method = $members['getDummyMixedString'][0];
+        $this->assertCount(1, $method->getFilters());
     }
 
 }

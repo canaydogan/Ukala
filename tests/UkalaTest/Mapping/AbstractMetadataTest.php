@@ -34,9 +34,58 @@ class AbstractMetadataTest extends TestCase
         $this->assertEquals(2, count($this->_abstractMetadata->getValidators()));
     }
 
-    public function testHasNoValidators()
+    public function testHasValidatorsWithNoValidators()
     {
         $this->assertFalse($this->_abstractMetadata->hasValidators());
+    }
+
+    public function testHasValidatorsWithValidator()
+    {
+        $this->_abstractMetadata->addValidator($this->getNotEmptyValidator());
+        $this->assertTrue($this->_abstractMetadata->hasValidators());
+    }
+
+    public function testAddFilter()
+    {
+        $filter = $this->getIntFilter();
+
+
+        $this->assertCount(0, $this->_abstractMetadata->getFilters());
+
+        $this->_abstractMetadata->addFilter($filter);
+
+        $filters = $this->_abstractMetadata->getFilters();
+
+        $this->assertCount(1, $filters);
+        $this->assertSame($filter, $filters[0]);
+    }
+
+    public function testAddFilters()
+    {
+        $filters = array(
+            $this->getIntFilter(),
+            $this->getIntFilter()
+        );
+
+        $this->assertCount(0, $this->_abstractMetadata->getFilters());
+
+        $this->_abstractMetadata->addFilters($filters);
+
+        $_filters = $this->_abstractMetadata->getFilters();
+
+        $this->assertCount(2, $_filters);
+        $this->assertSame($filters[0], $filters[0]);
+    }
+
+    public function testHasFiltersWithNoFilters()
+    {
+        $this->assertFalse($this->_abstractMetadata->hasFilters());
+    }
+
+    public function testHasFiltersWithFilter()
+    {
+        $this->_abstractMetadata->addFilter($this->getIntFilter());
+        $this->assertTrue($this->_abstractMetadata->hasFilters());
     }
 
 }

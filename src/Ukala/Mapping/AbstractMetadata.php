@@ -2,12 +2,15 @@
 
 namespace Ukala\Mapping;
 
-use Zend\Validator\Validator;
+use Zend\Validator\Validator,
+    Zend\Filter\Filter;
 
 abstract class AbstractMetadata
 {
 
     protected $_validators = array();
+
+    protected $_filters = array();
 
     public function getValidators()
     {
@@ -29,6 +32,33 @@ abstract class AbstractMetadata
     public function hasValidators()
     {
         return count($this->_validators) > 0;
+    }
+
+    public function setFilters($filters)
+    {
+        $this->_filters = $filters;
+    }
+
+    public function getFilters()
+    {
+        return $this->_filters;
+    }
+
+    public function addFilter(Filter $filter)
+    {
+        $this->_filters[] = $filter;
+    }
+
+    public function addFilters(array $filters)
+    {
+        foreach ($filters as $filter) {
+            $this->addFilter($filter);
+        }
+    }
+
+    public function hasFilters()
+    {
+        return count($this->_filters) > 0;
     }
 
 }

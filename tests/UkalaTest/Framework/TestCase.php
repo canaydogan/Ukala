@@ -7,7 +7,8 @@ use Zend\Validator\NotEmpty,
     Doctrine\Common\Annotations\AnnotationReader,
     Ukala\Mapping\ClassMetadata,
     Ukala\Mapping\Loader\AnnotationLoader,
-    Ukala\Mapping\ClassMetadataFactory\Standard;
+    Ukala\Mapping\ClassMetadataFactory\Standard,
+    Zend\Filter\Int;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -75,6 +76,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
     public static function getLocator()
     {
         return self::$locator;
+    }
+
+    public function getIntFilter()
+    {
+        return new Int();
     }
 
 }

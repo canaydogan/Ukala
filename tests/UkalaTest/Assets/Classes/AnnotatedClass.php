@@ -2,16 +2,19 @@
 
 namespace UkalaTest\Assets\Classes;
 
-use Ukala\Validator AS Validator;
+use Ukala\Validator AS Validator,
+    Ukala\Filter AS Filter;
 
 /**
  * @Validator\NotEmpty()
+ * @Filter\Int()
  */
 class AnnotatedClass
 {
 
     /**
      * @Validator\NotEmpty()
+     * @Filter\Alpha();
      * @var string
      */
     protected $_name;
@@ -45,6 +48,14 @@ class AnnotatedClass
         }
 
         return false;
+    }
+
+    /**
+     * @Filter\Alpha()
+     */
+    public function getDummyMixedString()
+    {
+        return '1234abc';
     }
 
     /**

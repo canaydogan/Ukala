@@ -8,7 +8,8 @@ use Ukala\Mapping\Loader,
     Ukala\Mapping\MethodMetadata,
     Doctrine\Common\Annotations\Reader,
     Doctrine\Common\Annotations\AnnotationRegistry,
-    Zend\Validator\Validator;
+    Zend\Validator\Validator,
+    Zend\Filter\Filter;
 
 class AnnotationLoader implements Loader
 {
@@ -24,6 +25,10 @@ class AnnotationLoader implements Loader
             'Ukala\Validator',
             __DIR__ . '/../../../'
         );
+        AnnotationRegistry::registerAutoloadNamespace(
+            'Ukala\Filter',
+            __DIR__ . '/../../../'
+        );
         $this->setReader($reader);
     }
 
@@ -37,6 +42,9 @@ class AnnotationLoader implements Loader
             if ($this->isValidator($value)) {
                 $metadata->addValidator($value);
             }
+            if ($this->isFilter($value)) {
+                $metadata->addFilter($value);
+            }
 
             $loaded = true;
         }
@@ -47,6 +55,9 @@ class AnnotationLoader implements Loader
             foreach ($this->getReader()->getPropertyAnnotations($property) as $value) {
                 if ($this->isValidator($value)) {
                     $propertyMetadata->addValidator($value);
+                }
+                if ($this->isFilter($value)) {
+                    $propertyMetadata->addFilter($value);
                 }
 
                 $loaded = true;
@@ -59,6 +70,9 @@ class AnnotationLoader implements Loader
             foreach ($this->getReader()->getMethodAnnotations($method) as $value) {
                 if ($this->isValidator($value)) {
                     $methodMetadata->addValidator($value);
+                }
+                if ($this->isFilter($value)) {
+                    $methodMetadata->addFilter($value);
                 }
 
                 $loaded = true;
@@ -88,6 +102,11 @@ class AnnotationLoader implements Loader
     public function getReader()
     {
         return $this->_reader;
+    }
+
+    public function isFilter($value)
+    {
+        return $value instanceof Filter;
     }
 
 }
