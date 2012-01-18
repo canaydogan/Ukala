@@ -9,6 +9,7 @@ abstract class AbstractMemberMetadata extends AbstractMetadata
 
     abstract public function newReflectionMember();
     abstract public function getValue($object);
+    abstract public function setValue($object, $value);
 
     /**
      * @var string

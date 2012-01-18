@@ -53,4 +53,16 @@ class PropertyMetadataTest extends  TestCase
         );
     }
 
+    public function testSetValueWithObject()
+    {
+        $this->_propertyMetadata->setValue(
+            $this->_annotatedClass,
+            'value for set'
+        );
+        $this->assertEquals(
+            'value for set',
+            $this->_annotatedClass->getName()
+        );
+    }
+
 }

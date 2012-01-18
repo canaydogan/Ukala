@@ -7,7 +7,8 @@ return array(
                 'ukala_cache' => 'Doctrine\Common\Cache\ArrayCache',
                 'ukala_loader' => 'Ukala\Mapping\Loader\AnnotationLoader',
                 'ukala_factory' => 'Ukala\Mapping\ClassMetadataFactory\Standard',
-                'object_validator' => 'Ukala\ObjectValidator'
+                'object_validator' => 'Ukala\ObjectValidator',
+                'object_filter' => 'Ukala\ObjectFilter'
             ),
             'ukala_loader' => array(
                 'parameters' => array(
@@ -21,6 +22,11 @@ return array(
                 )
             ),
             'object_validator' => array(
+                'parameters' => array(
+                    'classMetadataFactory' => 'ukala_factory'
+                )
+            ),
+            'object_filter' => array(
                 'parameters' => array(
                     'classMetadataFactory' => 'ukala_factory'
                 )

@@ -37,6 +37,8 @@ class AnnotatedClass
      */
     public $confirmPassword;
 
+    public $dummyMixedString = '1234abc';
+
     /**
      * @Validator\NotEmpty()
      * @return bool
@@ -53,9 +55,12 @@ class AnnotatedClass
     /**
      * @Filter\Alpha()
      */
-    public function getDummyMixedString()
+    public function getDummyMixedString($value = null)
     {
-        return '1234abc';
+        if ($value) {
+            $this->dummyMixedString = $value;
+        }
+        return $this->dummyMixedString;
     }
 
     /**

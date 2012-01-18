@@ -52,4 +52,13 @@ class MethodMetadataTest extends TestCase
         );
     }
 
+    public function testSetValueWithObject()
+    {
+        $className = get_class($this->_annotatedClass);
+        $metadata = new MethodMetadata($className, 'getDummyMixedString');
+
+        $metadata->setValue($this->_annotatedClass, 'value for set');
+        $this->assertEquals('value for set', $this->_annotatedClass->getDummyMixedString());
+    }
+
 }

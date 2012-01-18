@@ -31,4 +31,9 @@ class MethodMetadata extends  AbstractMemberMetadata
         return $this->getReflectionMember()->invoke($object);
     }
 
+    public function setValue($object, $value)
+    {
+        $this->getReflectionMember()->invoke($object, $value);
+    }
+
 }

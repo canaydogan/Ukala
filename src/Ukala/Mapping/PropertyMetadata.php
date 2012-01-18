@@ -33,4 +33,10 @@ class PropertyMetadata extends AbstractMemberMetadata
         return $this->getReflectionMember()->getValue($object);
     }
 
+    public function setValue($object, $value)
+    {
+        $this->getReflectionMember()->setValue($object, $value);
+    }
+
+
 }
