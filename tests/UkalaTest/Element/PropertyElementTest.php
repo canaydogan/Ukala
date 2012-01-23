@@ -4,14 +4,14 @@ namespace UkalaTest\Element;
 
 use UkalaTest\Framework\TestCase,
     UkalaTest\Element\AbstractElement,
-    Ukala\ELement\PropertyElement;
+    Ukala\ELement\Property;
 
 class PropertyElementTest extends AbstractElement
 {
 
     public function getElementByOptions($options)
     {
-        return new PropertyElement($options);
+        return new Property($options);
     }
 
 }

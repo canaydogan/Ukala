@@ -4,14 +4,14 @@ namespace UkalaTest\Element;
 
 use UkalaTest\Framework\TestCase,
     UkalaTest\Element\AbstractElement,
-    Ukala\ELement\ClassElement;
+    Ukala\ELement\Clazz;
 
 class ClassElementTest extends AbstractElement
 {
 
     public function getElementByOptions($options)
     {
-        return new ClassElement($options);
+        return new Clazz($options);
     }
 
 }
