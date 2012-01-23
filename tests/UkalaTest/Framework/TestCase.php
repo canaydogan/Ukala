@@ -65,6 +65,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $annotatedClass->setEmail('canaydogan89@gmail.com');
         $annotatedClass->setPassword('12345');
         $annotatedClass->setConfirmPassword('12345');
+        $annotatedClass->setPhone('12345');
+        $annotatedClass->setCountry('Turkey');
 
         return $annotatedClass;
     }

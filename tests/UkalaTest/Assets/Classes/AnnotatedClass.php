@@ -24,6 +24,7 @@ class AnnotatedClass
 
     /**
      * @Validator\NotEmpty()
+     * @Element\Property({"required" = true})
      * @Validator\EmailAddress()
      * @var string
      */
@@ -41,6 +42,19 @@ class AnnotatedClass
     public $confirmPassword;
 
     public $dummyMixedString = '1234abc';
+
+    /**
+     * @Element\Property({"required" = false})
+     * @Validator\StringLength(min = 4, max = 8)
+     * @var string
+     */
+    public $phone;
+
+    /**
+     * @Element\Property({"required" = true})
+     * @var string
+     */
+    public $country;
 
     /**
      * @Validator\NotEmpty()
@@ -129,6 +143,38 @@ class AnnotatedClass
     public function getConfirmPassword()
     {
         return $this->confirmPassword;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 
 }

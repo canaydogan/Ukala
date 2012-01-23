@@ -44,13 +44,27 @@ class ObjectValidator implements Validator
 
         foreach ($metadata->getMembers() as $member) {
             foreach ($member as $memberMetadata) {
-                foreach ($memberMetadata->getValidators() as $validator) {
-                    if (!$validator->isValid($memberMetadata->getValue($value))) {
+                $validators = $memberMetadata->getValidators();
+                $element = $memberMetadata->getElement();
+                if (count($validators)) {
+                    $_value = $memberMetadata->getValue($value);
+
+                    if ($element->isRequired()
+                        || (null !== $_value && '' !== $_value)) {
+                        foreach ($validators as $validator) {
+                            if (!$validator->isValid($_value)) {
+                                $valid = false;
+                                $this->addMessage(
+                                    $memberMetadata->getName(),
+                                    $validator->getMessages()
+                                );
+                            }
+                        }
+                    }
+                } elseif ($element->isRequired()) {
+                    $_value = $memberMetadata->getValue($value);
+                    if (null === $_value || '' === $_value) {
                         $valid = false;
-                        $this->addMessage(
-                            $memberMetadata->getName(),
-                            $validator->getMessages()
-                        );
                     }
                 }
             }

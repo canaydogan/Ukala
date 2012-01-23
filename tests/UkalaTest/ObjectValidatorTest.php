@@ -139,5 +139,52 @@ class ObjectValidatorTest extends TestCase
         $this->assertTrue($cache->contains(get_class($validObject)));
     }
 
+    public function testIsValidWithNullPhone()
+    {
+        $validObject = $this->getAnnotatedClassWithValidValues();
+        $validObject->setPhone(null);
+
+        $this->assertTrue($this->_validator->isValid($validObject));
+    }
+
+    public function testIsValidWithEmptyPhone()
+    {
+        $validObject = $this->getAnnotatedClassWithValidValues();
+        $validObject->setPhone('');
+
+        $this->assertTrue($this->_validator->isValid($validObject));
+    }
+
+    public function testIsValidWithInvalidPhone()
+    {
+        $validObject = $this->getAnnotatedClassWithValidValues();
+        $validObject->setPhone('123');
+
+        $this->assertFalse($this->_validator->isValid($validObject));
+    }
+
+    public function testIsValidForNoHasValidatorWithNullCountry()
+    {
+        $validObject = $this->getAnnotatedClassWithValidValues();
+        $validObject->setCountry(null);
+
+        $this->assertFalse($this->_validator->isValid($validObject));
+    }
+
+    public function testIsValidForNoHasValidatorWithEmptyCountry()
+    {
+        $validObject = $this->getAnnotatedClassWithValidValues();
+        $validObject->setCountry('');
+
+        $this->assertFalse($this->_validator->isValid($validObject));
+    }
+
+    public function testIsValidForNoHasValidatorWithValidCountry()
+    {
+        $validObject = $this->getAnnotatedClassWithValidValues();
+        $validObject->setCountry('Turkey');
+
+        $this->assertTrue($this->_validator->isValid($validObject));
+    }
 
 }
