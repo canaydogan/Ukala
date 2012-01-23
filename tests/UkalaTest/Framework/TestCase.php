@@ -9,7 +9,8 @@ use Zend\Validator\NotEmpty,
     Ukala\Mapping\Loader\AnnotationLoader,
     Ukala\Mapping\ClassMetadataFactory\Standard,
     Zend\Filter\Int,
-    Ukala\Element\Property;
+    Ukala\Element\Property,
+    UkalaTest\Assets\Consultant\BasicConsultant;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -92,6 +93,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
     public function newPropertyElement()
     {
         return new Property();
+    }
+
+    public function newBasicConsultant()
+    {
+        return new BasicConsultant();
     }
 
 }

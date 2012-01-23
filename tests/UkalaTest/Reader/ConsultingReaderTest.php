@@ -1,0 +1,101 @@
+<?php
+
+namespace UkalaTest\Reader;
+
+use UkalaTest\Framework\TestCase,
+    Ukala\Reader\ConsultingReader;
+
+class ConsultingReaderTest extends TestCase
+{
+
+    protected $_reader;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->_reader = new ConsultingReader($this->getStandardClassMetadataFactory());
+    }
+
+    public function testCreation()
+    {
+        $this->assertInstanceOf(
+            'Ukala\Reader',
+            $this->_reader
+        );
+    }
+
+    public function testAddConsultant()
+    {
+        $consultant = $this->newBasicConsultant();
+
+        $this->_reader->addConsultant($consultant);
+        $consultants = $this->_reader->getConsultants();
+
+        $this->assertCount(1, $consultants);
+        $this->assertSame($consultant, $consultants[0]);
+    }
+
+    public function testHasConsultants()
+    {
+        $consultant = $this->newBasicConsultant();
+
+        $this->assertFalse($this->_reader->hasConsultants());
+
+        $this->_reader->addConsultant($consultant);
+
+        $this->assertTrue($this->_reader->hasConsultants());
+    }
+
+    public function testReadWithObject()
+    {
+        $object = $this->getAnnotatedClass();
+
+        $result = $this->_reader->read($object);
+
+        $this->assertNotNull($result);
+        $this->assertEquals($object->getName(), $result['_name']);
+        $this->assertEquals($object->getEmail(), $result['email']);
+        $this->assertEquals(
+            $object->getDummyMixedString(),
+            $result['getDummyMixedString']
+        );
+    }
+
+    public function testReadWithObjects()
+    {
+        $objects = array(
+            $this->getAnnotatedClass(),
+            $this->getAnnotatedClass()
+        );
+
+        $result = $this->_reader->read($objects);
+
+        $this->assertNotNull($result);
+        $this->assertCount(2, $result);
+        $this->assertEquals($objects[0]->getName(), $result[0]['_name']);
+        $this->assertEquals($objects[0]->getEmail(), $result[0]['email']);
+        $this->assertEquals(
+            $objects[0]->getDummyMixedString(),
+            $result[0]['getDummyMixedString']
+        );
+    }
+
+    public function testReadWithObjectsForConsultants()
+    {
+        $this->_reader->addConsultant($this->newBasicConsultant());
+
+        $objects = array(
+            $this->getAnnotatedClass(),
+            $this->getAnnotatedClass()
+        );
+        $objects[0]->setName('forConsultant');
+
+        $result = $this->_reader->read($objects);
+
+        $this->assertNotNull($result);
+        $this->assertCount(2, $result);
+        $this->assertArrayNotHasKey('_name', $result[0]);
+        $this->assertArrayHasKey('_name', $result[1]);
+    }
+
+}
