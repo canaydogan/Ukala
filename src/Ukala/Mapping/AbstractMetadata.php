@@ -3,14 +3,26 @@
 namespace Ukala\Mapping;
 
 use Zend\Validator\Validator,
-    Zend\Filter\Filter;
+    Zend\Filter\Filter,
+    Ukala\Element\AbstractElement;
 
 abstract class AbstractMetadata
 {
 
+    /**
+     * @abstract
+     * @return AbstractElement
+     */
+    abstract public function newElement();
+
     protected $_validators = array();
 
     protected $_filters = array();
+
+    /**
+     * @var AbstractElement
+     */
+    protected $_element;
 
     public function getValidators()
     {
@@ -60,5 +72,25 @@ abstract class AbstractMetadata
     {
         return count($this->_filters) > 0;
     }
+
+    /**
+     * @param AbstractElement $element
+     */
+    public function setElement(AbstractElement $element)
+    {
+        $this->_element = $element;
+    }
+
+    /**
+     * @return AbstractElement
+     */
+    public function getElement()
+    {
+        if (null === $this->_element) {
+            $this->_element = $this->newElement();
+        }
+        return $this->_element;
+    }
+
 
 }

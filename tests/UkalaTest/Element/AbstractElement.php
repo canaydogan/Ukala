@@ -30,4 +30,21 @@ abstract class AbstractElement extends TestCase
         $this->assertTrue($element->isWritable());
     }
 
+    public function testConstructorForAnnotationReader()
+    {
+        $options = array(
+            'value' => array(
+                'required' => true,
+                'readable' => true,
+                'writable' => true
+            )
+        );
+
+        $element = $this->getElementByOptions($options);
+
+        $this->assertTrue($element->isRequired());
+        $this->assertTrue($element->isReadable());
+        $this->assertTrue($element->isWritable());
+    }
+
 }

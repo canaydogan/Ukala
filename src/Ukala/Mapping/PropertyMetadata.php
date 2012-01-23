@@ -4,7 +4,8 @@ namespace Ukala\Mapping;
 
 use Ukala\Mapping\AbstractMemberMetadata,
     InvalidArgumentException,
-    ReflectionProperty;
+    ReflectionProperty,
+    Ukala\Element\Property;
 
 class PropertyMetadata extends AbstractMemberMetadata
 {
@@ -36,6 +37,11 @@ class PropertyMetadata extends AbstractMemberMetadata
     public function setValue($object, $value)
     {
         $this->getReflectionMember()->setValue($object, $value);
+    }
+
+    public function newElement()
+    {
+        return new Property();
     }
 
 

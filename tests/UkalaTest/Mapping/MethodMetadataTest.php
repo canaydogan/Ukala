@@ -61,4 +61,12 @@ class MethodMetadataTest extends TestCase
         $this->assertEquals('value for set', $this->_annotatedClass->getDummyMixedString());
     }
 
+    public function testNewElement()
+    {
+        $this->assertInstanceOf(
+            'Ukala\Element\Method',
+            $this->_methodMetadata->newElement()
+        );
+    }
+
 }

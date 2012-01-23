@@ -4,7 +4,8 @@ namespace Ukala\Mapping;
 
 use InvalidArgumentException,
     Ukala\Mapping\AbstractMemberMetadata,
-    ReflectionMethod;
+    ReflectionMethod,
+    Ukala\Element\Method;
 
 class MethodMetadata extends  AbstractMemberMetadata
 {
@@ -35,5 +36,11 @@ class MethodMetadata extends  AbstractMemberMetadata
     {
         $this->getReflectionMember()->invoke($object, $value);
     }
+
+    public function newElement()
+    {
+        return new Method();
+    }
+
 
 }

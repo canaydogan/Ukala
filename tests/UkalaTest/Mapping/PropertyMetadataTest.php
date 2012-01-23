@@ -65,4 +65,12 @@ class PropertyMetadataTest extends  TestCase
         );
     }
 
+    public function testNewElement()
+    {
+        $this->assertInstanceOf(
+            'Ukala\Element\Property',
+            $this->_propertyMetadata->newElement()
+        );
+    }
+
 }

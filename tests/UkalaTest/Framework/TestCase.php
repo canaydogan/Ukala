@@ -8,7 +8,8 @@ use Zend\Validator\NotEmpty,
     Ukala\Mapping\ClassMetadata,
     Ukala\Mapping\Loader\AnnotationLoader,
     Ukala\Mapping\ClassMetadataFactory\Standard,
-    Zend\Filter\Int;
+    Zend\Filter\Int,
+    Ukala\Element\Property;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -78,9 +79,17 @@ class TestCase extends \PHPUnit_Framework_TestCase
         return self::$locator;
     }
 
+    /**
+     * @todo rename to newIntFilter
+     */
     public function getIntFilter()
     {
         return new Int();
+    }
+
+    public function newPropertyElement()
+    {
+        return new Property();
     }
 
 }

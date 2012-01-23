@@ -4,7 +4,8 @@ namespace Ukala\Mapping;
 
 use Ukala\Mapping\AbstractMetadata,
     Ukala\Mapping\AbstractMemberMetadata,
-    ReflectionClass;
+    ReflectionClass,
+    Ukala\Element\Clazz;
 
 class ClassMetadata extends AbstractMetadata
 {
@@ -101,5 +102,11 @@ class ClassMetadata extends AbstractMetadata
     {
         return array_key_exists($name, $this->_members);
     }
+
+    public function newElement()
+    {
+        return new Clazz();
+    }
+
 
 }

@@ -3,11 +3,13 @@
 namespace UkalaTest\Assets\Classes;
 
 use Ukala\Validator AS Validator,
-    Ukala\Filter AS Filter;
+    Ukala\Filter AS Filter,
+    Ukala\Element AS Element;
 
 /**
  * @Validator\NotEmpty()
  * @Filter\Int()
+ * @Element\Clazz({"readable" = true, "writable" = true})
  */
 class AnnotatedClass
 {
@@ -15,6 +17,7 @@ class AnnotatedClass
     /**
      * @Validator\NotEmpty()
      * @Filter\Alpha();
+     * @Element\Property({"required" = true, "readable" = true, "writable" = true})
      * @var string
      */
     protected $_name;
@@ -54,6 +57,7 @@ class AnnotatedClass
 
     /**
      * @Filter\Alpha()
+     * @Element\Method({"readable" = true})
      */
     public function getDummyMixedString($value = null)
     {

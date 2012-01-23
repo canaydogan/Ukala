@@ -22,6 +22,9 @@ abstract class AbstractElement
 
     public function __construct($options = null)
     {
+        if (isset($options['value'])) {
+            $options = $options['value'];
+        }
         if (is_array($options)) {
             $this->setOptions($options);
         }

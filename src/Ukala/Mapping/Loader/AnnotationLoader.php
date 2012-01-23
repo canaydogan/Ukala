@@ -9,7 +9,8 @@ use Ukala\Mapping\Loader,
     Doctrine\Common\Annotations\Reader,
     Doctrine\Common\Annotations\AnnotationRegistry,
     Zend\Validator\Validator,
-    Zend\Filter\Filter;
+    Zend\Filter\Filter,
+    Ukala\Element\AbstractElement;
 
 class AnnotationLoader implements Loader
 {
@@ -45,6 +46,9 @@ class AnnotationLoader implements Loader
             if ($this->isFilter($value)) {
                 $metadata->addFilter($value);
             }
+            if ($this->isElement($value)) {
+                $metadata->setElement($value);
+            }
 
             $loaded = true;
         }
@@ -58,6 +62,9 @@ class AnnotationLoader implements Loader
                 }
                 if ($this->isFilter($value)) {
                     $propertyMetadata->addFilter($value);
+                }
+                if ($this->isElement($value)) {
+                    $propertyMetadata->setElement($value);
                 }
 
                 $loaded = true;
@@ -73,6 +80,9 @@ class AnnotationLoader implements Loader
                 }
                 if ($this->isFilter($value)) {
                     $methodMetadata->addFilter($value);
+                }
+                if ($this->isElement($value)) {
+                    $methodMetadata->setElement($value);
                 }
 
                 $loaded = true;
@@ -107,6 +117,11 @@ class AnnotationLoader implements Loader
     public function isFilter($value)
     {
         return $value instanceof Filter;
+    }
+
+    public function isElement($value)
+    {
+        return $value instanceof AbstractElement;
     }
 
 }

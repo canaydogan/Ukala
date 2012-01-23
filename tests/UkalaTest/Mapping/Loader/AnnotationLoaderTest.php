@@ -111,4 +111,51 @@ class AnnotationLoaderTest extends TestCase
         $this->assertCount(1, $method->getFilters());
     }
 
+    public function testIsElementWithInvalidElement()
+    {
+        $this->assertFalse($this->_annotationLoader->isElement(null));
+    }
+
+    public function testIsElementWithValidElement()
+    {
+        $this->assertTrue($this->_annotationLoader->isElement(
+            $this->newPropertyElement()
+        ));
+    }
+
+    public function testElementForClass()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $element = $classMetadata->getElement();
+
+        $this->assertTrue($element->isReadable());
+        $this->assertTrue($element->isWritable());
+        $this->assertFalse($element->isRequired());
+    }
+
+    public function testElementForProperty()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['_name'][0]->getElement();
+
+        $this->assertTrue($element->isReadable());
+        $this->assertTrue($element->isWritable());
+        $this->assertTrue($element->isRequired());
+    }
+
+    public function testElementForMethod()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['getDummyMixedString'][0]->getElement();
+
+        $this->assertTrue($element->isReadable());
+        $this->assertFalse($element->isWritable());
+        $this->assertFalse($element->isRequired());
+    }
+
 }

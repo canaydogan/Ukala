@@ -75,4 +75,12 @@ class ClassMetadataTest extends TestCase
         $this->assertTrue($this->_classMetadata->hasMemberMetadatas($propertyName));
     }
 
+    public function testNewElement()
+    {
+        $this->assertInstanceOf(
+            'Ukala\Element\Clazz',
+            $this->_classMetadata->newElement()
+        );
+    }
+
 }

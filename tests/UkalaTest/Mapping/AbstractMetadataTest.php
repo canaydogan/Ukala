@@ -88,4 +88,24 @@ class AbstractMetadataTest extends TestCase
         $this->assertTrue($this->_abstractMetadata->hasFilters());
     }
 
+    public function testGetElementWithDefinedElement()
+    {
+        $property = $this->newPropertyElement();
+        $this->_abstractMetadata->setElement($property);
+
+        $this->assertSame($property, $this->_abstractMetadata->getElement());
+    }
+
+    public function testGetElementWithUndefinedElement()
+    {
+        $this->_abstractMetadata->expects($this->once())
+                                ->method('newElement')
+                                ->will($this->returnValue($this->newPropertyElement()));
+
+        $this->assertInstanceOf(
+            'Ukala\Element\AbstractElement',
+            $this->_abstractMetadata->getElement()
+        );
+    }
+
 }
