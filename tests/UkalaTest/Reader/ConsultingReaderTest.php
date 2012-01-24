@@ -98,4 +98,40 @@ class ConsultingReaderTest extends TestCase
         $this->assertArrayHasKey('_name', $result[1]);
     }
 
+    public function testReadWithNotReadableObject()
+    {
+        $result = $this->_reader->read($this->getAnnotatedClass2());
+
+        $this->assertCount(0, $result);
+    }
+
+    public function testReadWithLocator()
+    {
+        $object = $this->getAnnotatedClassWithValidValues();
+
+        $reader = $this->getLocator()->get('object_reader');
+
+        $result = $this->_reader->read($object);
+
+        $this->assertNotNull($result);
+        $this->assertEquals($object->getName(), $result['_name']);
+        $this->assertEquals($object->getEmail(), $result['email']);
+        $this->assertEquals(
+            $object->getDummyMixedString(),
+            $result['getDummyMixedString']
+        );
+    }
+
+    public function testReadForLocatorCache()
+    {
+        $object = $this->getAnnotatedClassWithValidValues();
+
+        $reader = $this->getLocator()->get('object_reader');
+        $cache = $this->getLocator()->get('ukala_cache');
+
+        $reader->read($object);
+
+        $this->assertTrue($cache->contains(get_class($object)));
+    }
+
 }

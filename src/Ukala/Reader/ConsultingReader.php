@@ -39,16 +39,19 @@ class ConsultingReader implements Reader, Consultant
             $result = $this->_read($value);
         }
 
-
         return $result;
     }
 
     protected function _read($value)
     {
+        $result = array();
         $className = get_class($value);
         $metadata = $this->getClassMetadataFactory()->getClassMetadata($className);
 
-        $result = array();
+        if (!$metadata->getElement()->isReadable()
+            || !$this->isAvailable($value, $metadata)) {
+            return $result;
+        }
 
         foreach ($metadata->getMembers() as $member) {
             foreach ($member as $memberMetadata) {

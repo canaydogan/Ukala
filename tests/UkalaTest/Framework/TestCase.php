@@ -10,7 +10,8 @@ use Zend\Validator\NotEmpty,
     Ukala\Mapping\ClassMetadataFactory\Standard,
     Zend\Filter\Int,
     Ukala\Element\Property,
-    UkalaTest\Assets\Consultant\BasicConsultant;
+    UkalaTest\Assets\Consultant\BasicConsultant,
+    UkalaTest\Assets\Classes\AnnotatedClass2;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -98,6 +99,20 @@ class TestCase extends \PHPUnit_Framework_TestCase
     public function newBasicConsultant()
     {
         return new BasicConsultant();
+    }
+
+    public function newAnnotatedClass2()
+    {
+        return new AnnotatedClass2();
+    }
+
+    public function getAnnotatedClass2()
+    {
+        $annotatedClass2 = $this->newAnnotatedClass2();
+
+        $annotatedClass2->setName('Can Aydogan');
+
+        return $annotatedClass2;
     }
 
 }
