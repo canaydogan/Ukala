@@ -24,7 +24,7 @@ class AnnotatedClass
 
     /**
      * @Validator\NotEmpty()
-     * @Element\Property({"required" = true, "readable" = true})
+     * @Element\Property({"required" = true, "readable" = true, "writable" = false})
      * @Validator\EmailAddress()
      * @var string
      */

@@ -7,7 +7,7 @@ use Ukala\Validator AS Validator,
     Ukala\Element AS Element;
 
 /**
- * @Element\Clazz({"readable" = false, "writable" = true})
+ * @Element\Clazz({"readable" = false, "writable" = false})
  */
 class AnnotatedClass2
 {

@@ -9,7 +9,8 @@ return array(
                 'ukala_factory' => 'Ukala\Mapping\ClassMetadataFactory\Standard',
                 'object_validator' => 'Ukala\ObjectValidator',
                 'object_filter' => 'Ukala\ObjectFilter',
-                'object_reader' => 'Ukala\Reader\ConsultingReader'
+                'object_reader' => 'Ukala\Reader\ConsultingReader',
+                'object_writer' => 'Ukala\Writer\ConsultingWriter'
             ),
             'ukala_loader' => array(
                 'parameters' => array(
@@ -33,6 +34,11 @@ return array(
                 )
             ),
             'object_reader' => array(
+                'parameters' => array(
+                    'classMetadataFactory' => 'ukala_factory'
+                )
+            ),
+            'object_writer' => array(
                 'parameters' => array(
                     'classMetadataFactory' => 'ukala_factory'
                 )
