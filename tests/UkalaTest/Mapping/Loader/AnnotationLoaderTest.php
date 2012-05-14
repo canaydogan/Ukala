@@ -132,6 +132,19 @@ class AnnotationLoaderTest extends TestCase
         $this->assertTrue($element->isReadable());
         $this->assertTrue($element->isWritable());
         $this->assertFalse($element->isRequired());
+        $this->assertEquals('className', $element->getName());
+    }
+
+    public function testElementForOriginalClassName()
+    {
+        $classMetadata = $this->getAnnotated2ClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $element = $classMetadata->getElement();
+
+        $this->assertEquals(
+            'UkalaTest\Assets\Classes\AnnotatedClass2',
+            $element->getName()
+        );
     }
 
     public function testElementForProperty()
@@ -144,6 +157,10 @@ class AnnotationLoaderTest extends TestCase
         $this->assertTrue($element->isReadable());
         $this->assertTrue($element->isWritable());
         $this->assertTrue($element->isRequired());
+        $this->assertEquals('newName', $element->getName());
+
+        $element = $members['email'][0]->getElement();
+        $this->assertEquals('email', $element->getName());
     }
 
     public function testElementForMethod()
@@ -156,6 +173,11 @@ class AnnotationLoaderTest extends TestCase
         $this->assertTrue($element->isReadable());
         $this->assertFalse($element->isWritable());
         $this->assertFalse($element->isRequired());
+        $this->assertEquals('newGetDummyMixedString', $element->getName());
+
+        $element = $members['isPasswordConfirmed'][0]->getElement();
+
+        $this->assertEquals('isPasswordConfirmed', $element->getName());
     }
 
 }

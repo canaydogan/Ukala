@@ -90,6 +90,18 @@ class AnnotationLoader implements Loader
 
         }
 
+        if (null === $metadata->getElement()->getName()) {
+            $metadata->getElement()->setName($metadata->getClassName());
+        }
+
+        foreach ($metadata->getMembers() as $member) {
+            foreach ($member as $metadata) {
+                if (null === $metadata->getElement()->getName()) {
+                    $metadata->getElement()->setName($metadata->getName());
+                }
+            }
+        }
+
         return $loaded;
     }
 

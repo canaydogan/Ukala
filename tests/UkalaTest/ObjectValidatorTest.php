@@ -73,7 +73,7 @@ class ObjectValidatorTest extends TestCase
         $this->assertFalse($this->_validator->isValid($invalidObject));
 
         $messages = $this->_validator->getMessages();
-        $this->assertEquals(1, count($messages['_name']));
+        $this->assertEquals(1, count($messages['newName']));
         $this->assertEquals(1, count($messages));
     }
 

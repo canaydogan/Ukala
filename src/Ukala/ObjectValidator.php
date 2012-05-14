@@ -55,7 +55,7 @@ class ObjectValidator implements Validator
                             if (!$validator->isValid($_value)) {
                                 $valid = false;
                                 $this->addMessage(
-                                    $memberMetadata->getName(),
+                                    $element->getName(),
                                     $validator->getMessages()
                                 );
                             }

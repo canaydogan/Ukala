@@ -50,7 +50,7 @@ class ConsultingWriterTest extends TestCase
     {
         $object = $this->getAnnotatedClass();
         $values = array(
-            '_name' => 'Can Aydogan',
+            'newName' => 'Can Aydogan',
             'email' => 'canaydogan89@gmail.com'
         );
 
@@ -66,7 +66,7 @@ class ConsultingWriterTest extends TestCase
     {
         $object = $this->newAnnotatedClass2();
         $values = array(
-            '_name' => 'Can Aydogan',
+            'newName' => 'Can Aydogan',
         );
 
         $this->_writer->write($values, $object);
@@ -80,7 +80,7 @@ class ConsultingWriterTest extends TestCase
         $object = $this->getAnnotatedClass();
 
         $values = array(
-            '_name' => 'forConsultant'
+            'newName' => 'forConsultant'
         );
 
         $this->_writer->write($values, $object);
@@ -93,7 +93,7 @@ class ConsultingWriterTest extends TestCase
         $writer = $this->getLocator()->get('object_writer');
         $object = $this->getAnnotatedClass();
         $values = array(
-            '_name' => 'Can Aydogan',
+            'newName' => 'Can Aydogan',
             'email' => 'canaydogan89@gmail.com'
         );
 

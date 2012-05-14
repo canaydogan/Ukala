@@ -11,7 +11,8 @@ use Zend\Validator\NotEmpty,
     Zend\Filter\Int,
     Ukala\Element\Property,
     UkalaTest\Assets\Consultant\BasicConsultant,
-    UkalaTest\Assets\Classes\AnnotatedClass2;
+    UkalaTest\Assets\Classes\AnnotatedClass2,
+    UkalaTest\Assets\Classes\AnnotatedClass3;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -47,6 +48,15 @@ class TestCase extends \PHPUnit_Framework_TestCase
     public function getAnnotatedClassMetadata()
     {
         $annotatedClass = $this->getAnnotatedClass();
+        $className = get_class($annotatedClass);
+        $classMetadata = new ClassMetadata($className);
+
+        return $classMetadata;
+    }
+
+    public function getAnnotated2ClassMetadata()
+    {
+        $annotatedClass = $this->getAnnotatedClass2();
         $className = get_class($annotatedClass);
         $classMetadata = new ClassMetadata($className);
 
@@ -113,6 +123,18 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $annotatedClass2->setName('Can Aydogan');
 
         return $annotatedClass2;
+    }
+
+    public function newAnnotatedClass3()
+    {
+        return new AnnotatedClass3();
+    }
+
+    public function newValidAnnotatedClass3()
+    {
+        $annotatedClass3 = $this->newAnnotatedClass3();
+
+        return $annotatedClass3;
     }
 
 }

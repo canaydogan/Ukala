@@ -9,7 +9,7 @@ use Ukala\Validator AS Validator,
 /**
  * @Validator\NotEmpty()
  * @Filter\Int()
- * @Element\Clazz({"readable" = true, "writable" = true})
+ * @Element\Clazz({"readable" = true, "writable" = true, "name" = "className"})
  */
 class AnnotatedClass
 {
@@ -17,7 +17,7 @@ class AnnotatedClass
     /**
      * @Validator\NotEmpty()
      * @Filter\Alpha();
-     * @Element\Property({"required" = true, "readable" = true, "writable" = true})
+     * @Element\Property({"required" = true, "readable" = true, "writable" = true, "name" = "newName"})
      * @var string
      */
     protected $_name;
@@ -57,6 +57,12 @@ class AnnotatedClass
     public $country;
 
     /**
+     * @Element\Clazz({"readable" = true})
+     * @var AnnotatedClass3
+     */
+    public $annotatedClass;
+
+    /**
      * @Validator\NotEmpty()
      * @return bool
      */
@@ -71,7 +77,7 @@ class AnnotatedClass
 
     /**
      * @Filter\Alpha()
-     * @Element\Method({"readable" = true})
+     * @Element\Method({"readable" = true, "name" = "newGetDummyMixedString"})
      */
     public function getDummyMixedString($value = null)
     {
@@ -175,6 +181,22 @@ class AnnotatedClass
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * @param \UkalaTest\Assets\Classes\AnnotatedClass3 $annotatedClass
+     */
+    public function setAnnotatedClass($annotatedClass)
+    {
+        $this->annotatedClass = $annotatedClass;
+    }
+
+    /**
+     * @return \UkalaTest\Assets\Classes\AnnotatedClass3
+     */
+    public function getAnnotatedClass()
+    {
+        return $this->annotatedClass;
     }
 
 }

@@ -20,6 +20,11 @@ abstract class AbstractElement
      */
     protected $_writable = false;
 
+    /**
+     * @var string
+     */
+    protected $_name;
+
     public function __construct($options = null)
     {
         if (isset($options['value'])) {
@@ -42,6 +47,9 @@ abstract class AbstractElement
 
         if (isset($options['writable'])) {
             $this->setWritable($options['writable']);
+        }
+        if (isset($options['name'])) {
+            $this->setName($options['name']);
         }
     }
 
@@ -82,6 +90,22 @@ abstract class AbstractElement
     public function setWritable($writable)
     {
         $this->_writable = $writable;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->_name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->_name;
     }
 
 

@@ -5,7 +5,7 @@ namespace Ukala\Reader;
 use Ukala\Reader,
     Ukala\Mapping\ClassMetadataFactory,
     Ukala\Consultant,
-    Doctrine\Common\Collections\ArrayCollection,
+    Doctrine\Common\Collections\Collection,
     Ukala\Mapping\AbstractMetadata;
 
 class ConsultingReader implements Reader, Consultant
@@ -31,7 +31,8 @@ class ConsultingReader implements Reader, Consultant
     {
         $result = array();
 
-        if (is_array($value)) {
+        if (is_array($value)
+            || $value instanceof Collection) {
             foreach ($value as $_value) {
                 $result[] = $this->read($_value);
             }
@@ -58,7 +59,11 @@ class ConsultingReader implements Reader, Consultant
                 $element = $memberMetadata->getElement();
                 if ($element->isReadable()
                     && $this->isAvailable($memberMetadata->getValue($value), $memberMetadata)) {
-                    $result[$memberMetadata->getName()] = $memberMetadata->getValue($value);
+                    $_value = $memberMetadata->getValue($value);
+                    if (is_object($_value)) {
+                        $_value = $this->read($_value);
+                    }
+                    $result[$element->getName()] = $_value;
                 }
             }
         }

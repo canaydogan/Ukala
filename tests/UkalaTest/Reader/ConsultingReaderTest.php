@@ -3,7 +3,8 @@
 namespace UkalaTest\Reader;
 
 use UkalaTest\Framework\TestCase,
-    Ukala\Reader\ConsultingReader;
+    Ukala\Reader\ConsultingReader,
+    Doctrine\Common\Collections\ArrayCollection;
 
 class ConsultingReaderTest extends TestCase
 {
@@ -53,12 +54,24 @@ class ConsultingReaderTest extends TestCase
         $result = $this->_reader->read($object);
 
         $this->assertNotNull($result);
-        $this->assertEquals($object->getName(), $result['_name']);
+        $this->assertEquals($object->getName(), $result['newName']);
         $this->assertEquals($object->getEmail(), $result['email']);
         $this->assertEquals(
             $object->getDummyMixedString(),
-            $result['getDummyMixedString']
+            $result['newGetDummyMixedString']
         );
+    }
+
+    public function testReadWithObjectForSubClass()
+    {
+        $annotatedClass = $this->newValidAnnotatedClass3();
+        $object = $this->getAnnotatedClass();
+        $object->setAnnotatedClass($annotatedClass);
+
+        $result = $this->_reader->read($object);
+
+        $this->assertNotNull($result['annotatedClass']);
+        $this->assertEquals($annotatedClass->getName(), $result['annotatedClass']['name']);
     }
 
     public function testReadWithObjects()
@@ -72,11 +85,30 @@ class ConsultingReaderTest extends TestCase
 
         $this->assertNotNull($result);
         $this->assertCount(2, $result);
-        $this->assertEquals($objects[0]->getName(), $result[0]['_name']);
+        $this->assertEquals($objects[0]->getName(), $result[0]['newName']);
         $this->assertEquals($objects[0]->getEmail(), $result[0]['email']);
         $this->assertEquals(
             $objects[0]->getDummyMixedString(),
-            $result[0]['getDummyMixedString']
+            $result[0]['newGetDummyMixedString']
+        );
+    }
+
+    public function testReadWithArrayCollection()
+    {
+        $objects = new ArrayCollection(array(
+            $this->getAnnotatedClass(),
+            $this->getAnnotatedClass()
+        ));
+
+        $result = $this->_reader->read($objects);
+
+        $this->assertNotNull($result);
+        $this->assertCount(2, $result);
+        $this->assertEquals($objects[0]->getName(), $result[0]['newName']);
+        $this->assertEquals($objects[0]->getEmail(), $result[0]['email']);
+        $this->assertEquals(
+            $objects[0]->getDummyMixedString(),
+            $result[0]['newGetDummyMixedString']
         );
     }
 
@@ -94,8 +126,8 @@ class ConsultingReaderTest extends TestCase
 
         $this->assertNotNull($result);
         $this->assertCount(2, $result);
-        $this->assertArrayNotHasKey('_name', $result[0]);
-        $this->assertArrayHasKey('_name', $result[1]);
+        $this->assertArrayNotHasKey('newName', $result[0]);
+        $this->assertArrayHasKey('newName', $result[1]);
     }
 
     public function testReadWithNotReadableObject()
@@ -114,11 +146,11 @@ class ConsultingReaderTest extends TestCase
         $result = $this->_reader->read($object);
 
         $this->assertNotNull($result);
-        $this->assertEquals($object->getName(), $result['_name']);
+        $this->assertEquals($object->getName(), $result['newName']);
         $this->assertEquals($object->getEmail(), $result['email']);
         $this->assertEquals(
             $object->getDummyMixedString(),
-            $result['getDummyMixedString']
+            $result['newGetDummyMixedString']
         );
     }
 

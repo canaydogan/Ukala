@@ -44,11 +44,11 @@ class ConsultingWriter implements Writer, Consultant
         foreach ($metadata->getMembers() as $member) {
             foreach ($member as $memberMetadata) {
                 $element = $memberMetadata->getElement();
-                $memberName = $memberMetadata->getName();
+                $elementName = $element->getName();
                 if ($element->isWritable()
-                    && array_key_exists($memberName, $values)
-                    && $this->isAvailable($values[$memberName], $memberMetadata)) {
-                    $memberMetadata->setValue($object, $values[$memberName]);
+                    && array_key_exists($elementName, $values)
+                    && $this->isAvailable($values[$elementName], $memberMetadata)) {
+                    $memberMetadata->setValue($object, $values[$elementName]);
                 }
             }
         }
