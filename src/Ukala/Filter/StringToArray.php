@@ -2,12 +2,12 @@
 
 namespace Ukala\Filter;
 
-use Zend\Filter\Filter;
+use Zend\Filter\FilterInterface;
 
 /**
  * @Annotation
  */
-class StringToArray implements Filter
+class StringToArray implements FilterInterface
 {
 
     public function __construct(array $options = array())

@@ -2,12 +2,12 @@
 
 namespace Ukala\Validator;
 
-use Zend\Validator\Validator;
+use Zend\Validator\ValidatorInterface;
 
 /**
  * @Annotation
  */
-class ArrayWalker implements Validator
+class ArrayWalker implements ValidatorInterface
 {
 
 

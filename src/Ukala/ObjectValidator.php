@@ -2,10 +2,10 @@
 
 namespace Ukala;
 
-use Zend\Validator\Validator,
+use Zend\Validator\ValidatorInterface,
     Ukala\Mapping\ClassMetadataFactory;
 
-class ObjectValidator implements Validator
+class ObjectValidator implements ValidatorInterface
 {
 
     /**

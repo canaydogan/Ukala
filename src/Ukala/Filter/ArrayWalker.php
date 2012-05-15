@@ -2,12 +2,12 @@
 
 namespace Ukala\Filter;
 
-use Zend\Filter\Filter;
+use Zend\Filter\FilterInterface;
 
 /**
  * @Annotation
  */
-class ArrayWalker implements Filter
+class ArrayWalker implements FilterInterface
 {
 
 

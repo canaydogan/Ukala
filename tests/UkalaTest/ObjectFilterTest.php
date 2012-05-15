@@ -20,7 +20,7 @@ class ObjectFilterTest extends TestCase
 
     public function testCreation()
     {
-        $this->assertInstanceOf('Zend\Filter\Filter', $this->_filter);
+        $this->assertInstanceOf('Zend\Filter\FilterInterface', $this->_filter);
     }
 
     public function testForNameWithNoNeedFilterValue()

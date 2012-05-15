@@ -2,10 +2,10 @@
 
 namespace Ukala;
 
-use Zend\Filter\Filter,
+use Zend\Filter\FilterInterface,
     Ukala\Mapping\ClassMetadataFactory;
 
-class ObjectFilter implements Filter
+class ObjectFilter implements FilterInterface
 {
 
     /**

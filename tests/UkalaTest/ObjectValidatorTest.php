@@ -18,7 +18,7 @@ class ObjectValidatorTest extends TestCase
 
     public function testCreation()
     {
-        $this->assertInstanceOf('Zend\Validator\Validator', $this->_validator);
+        $this->assertInstanceOf('Zend\Validator\ValidatorInterface', $this->_validator);
     }
 
     public function testAddMessageWithNoExistKey()

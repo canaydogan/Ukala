@@ -2,8 +2,8 @@
 
 namespace Ukala\Mapping;
 
-use Zend\Validator\Validator,
-    Zend\Filter\Filter,
+use Zend\Validator\ValidatorInterface,
+    Zend\Filter\FilterInterface,
     Ukala\Element\AbstractElement;
 
 abstract class AbstractMetadata
@@ -29,7 +29,7 @@ abstract class AbstractMetadata
         return $this->_validators;
     }
 
-    public function addValidator(Validator $validator)
+    public function addValidator(ValidatorInterface $validator)
     {
         $this->_validators[] = $validator;
     }
@@ -56,7 +56,7 @@ abstract class AbstractMetadata
         return $this->_filters;
     }
 
-    public function addFilter(Filter $filter)
+    public function addFilter(FilterInterface $filter)
     {
         $this->_filters[] = $filter;
     }

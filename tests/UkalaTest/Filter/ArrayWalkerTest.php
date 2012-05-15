@@ -20,7 +20,7 @@ class ArrayWalkerTest extends TestCase
     public function testCreation()
     {
         $this->assertInstanceOf(
-            'Zend\Filter\Filter',
+            'Zend\Filter\FilterInterface',
             $this->_filter
         );
     }

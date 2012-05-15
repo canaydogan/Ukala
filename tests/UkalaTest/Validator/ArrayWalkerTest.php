@@ -20,7 +20,7 @@ class ArrayWalkerTest extends TestCase
     public function testCreation()
     {
         $this->assertInstanceOf(
-            'Zend\Validator\Validator',
+            'Zend\Validator\ValidatorInterface',
             $this->_validator
         );
         $this->assertInternalType('array', $this->_validator->getMessages());

@@ -8,8 +8,8 @@ use Ukala\Mapping\Loader,
     Ukala\Mapping\MethodMetadata,
     Doctrine\Common\Annotations\Reader,
     Doctrine\Common\Annotations\AnnotationRegistry,
-    Zend\Validator\Validator,
-    Zend\Filter\Filter,
+    Zend\Validator\ValidatorInterface,
+    Zend\Filter\FilterInterface,
     Ukala\Element\AbstractElement;
 
 class AnnotationLoader implements Loader
@@ -107,7 +107,7 @@ class AnnotationLoader implements Loader
 
     public function isValidator($value)
     {
-        return $value instanceof Validator;
+        return $value instanceof ValidatorInterface;
     }
 
     /**
@@ -128,7 +128,7 @@ class AnnotationLoader implements Loader
 
     public function isFilter($value)
     {
-        return $value instanceof Filter;
+        return $value instanceof FilterInterface;
     }
 
     public function isElement($value)
