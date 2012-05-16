@@ -3,13 +3,17 @@
 namespace UkalaTest\Assets\Classes;
 
 use Ukala\Validator AS Validator,
-    Ukala\Filter AS Filter,
-    Ukala\Element AS Element;
+    Ukala\Filter,
+    Ukala\Element,
+    Ukala\LocatorProxy;
 
 /**
  * @Validator\NotEmpty()
  * @Filter\Int()
  * @Element\Clazz({"readable" = true, "writable" = true, "name" = "className"})
+ * @LocatorProxy\StandardProxy({
+ *  "name" = "Zend\Filter\Alnum"
+ * })
  */
 class AnnotatedClass
 {
@@ -61,6 +65,16 @@ class AnnotatedClass
      * @var AnnotatedClass3
      */
     public $annotatedClass;
+
+    /**
+     * @LocatorProxy\StandardProxy({
+     *  "name" = "Ukala\Element\Property",
+     *  "method" = "newInstance",
+     *  "params" = {"readable" = true, "writable" = true}
+     * })
+     * @var string
+     */
+    public $username;
 
     /**
      * @Validator\NotEmpty()
@@ -197,6 +211,27 @@ class AnnotatedClass
     public function getAnnotatedClass()
     {
         return $this->annotatedClass;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @LocatorProxy\StandardProxy({
+     *  "name" = "Ukala\Element\Method",
+     *  "method" = "newInstance",
+     *  "params" = {"readable" = true, "writable" = true}
+     * })
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
     }
 
 }

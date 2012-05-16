@@ -10,7 +10,9 @@ use Ukala\Mapping\Loader,
     Doctrine\Common\Annotations\AnnotationRegistry,
     Zend\Validator\ValidatorInterface,
     Zend\Filter\FilterInterface,
-    Ukala\Element\AbstractElement;
+    Ukala\Element\AbstractElement,
+    Ukala\LocatorProxy\LocatorProxy,
+    Zend\Di\LocatorInterface;
 
 class AnnotationLoader implements Loader
 {
@@ -20,14 +22,15 @@ class AnnotationLoader implements Loader
      */
     protected $_reader;
 
+    /**
+     * @var LocatorInterface
+     */
+    protected $_locator;
+
     public function __construct(Reader $reader)
     {
         AnnotationRegistry::registerAutoloadNamespace(
-            'Ukala\Validator',
-            __DIR__ . '/../../../'
-        );
-        AnnotationRegistry::registerAutoloadNamespace(
-            'Ukala\Filter',
+            'Ukala',
             __DIR__ . '/../../../'
         );
         $this->setReader($reader);
@@ -40,16 +43,7 @@ class AnnotationLoader implements Loader
         $loaded = false;
 
         foreach ($this->getReader()->getClassAnnotations($reflectionClass) as $value) {
-            if ($this->isValidator($value)) {
-                $metadata->addValidator($value);
-            }
-            if ($this->isFilter($value)) {
-                $metadata->addFilter($value);
-            }
-            if ($this->isElement($value)) {
-                $metadata->setElement($value);
-            }
-
+            $this->prepareMetadata($metadata, $value);
             $loaded = true;
         }
 
@@ -57,16 +51,7 @@ class AnnotationLoader implements Loader
             $propertyMetadata = new PropertyMetadata($className, $property->getName());
             $metadata->addMemberMetadata($propertyMetadata);
             foreach ($this->getReader()->getPropertyAnnotations($property) as $value) {
-                if ($this->isValidator($value)) {
-                    $propertyMetadata->addValidator($value);
-                }
-                if ($this->isFilter($value)) {
-                    $propertyMetadata->addFilter($value);
-                }
-                if ($this->isElement($value)) {
-                    $propertyMetadata->setElement($value);
-                }
-
+                $this->prepareMetadata($propertyMetadata, $value);
                 $loaded = true;
             }
         }
@@ -75,19 +60,9 @@ class AnnotationLoader implements Loader
             $methodMetadata = new MethodMetadata($className, $method->getName());
             $metadata->addMemberMetadata($methodMetadata);
             foreach ($this->getReader()->getMethodAnnotations($method) as $value) {
-                if ($this->isValidator($value)) {
-                    $methodMetadata->addValidator($value);
-                }
-                if ($this->isFilter($value)) {
-                    $methodMetadata->addFilter($value);
-                }
-                if ($this->isElement($value)) {
-                    $methodMetadata->setElement($value);
-                }
-
+                $this->prepareMetadata($methodMetadata, $value);
                 $loaded = true;
             }
-
         }
 
         if (null === $metadata->getElement()->getName()) {
@@ -103,6 +78,25 @@ class AnnotationLoader implements Loader
         }
 
         return $loaded;
+    }
+
+    public function prepareMetadata($metadata, $value)
+    {
+        if ($this->isLocatorProxy($value)
+            && null !== $this->getLocator()) {
+            $value = $value->doProxy($this->getLocator());
+        }
+        if ($this->isValidator($value)) {
+            $metadata->addValidator($value);
+        }
+        if ($this->isFilter($value)) {
+            $metadata->addFilter($value);
+        }
+        if ($this->isElement($value)) {
+            $metadata->setElement($value);
+        }
+
+        return $metadata;
     }
 
     public function isValidator($value)
@@ -134,6 +128,27 @@ class AnnotationLoader implements Loader
     public function isElement($value)
     {
         return $value instanceof AbstractElement;
+    }
+
+    public function isLocatorProxy($value)
+    {
+        return $value instanceof LocatorProxy;
+    }
+
+    /**
+     * @param LocatorInterface $locator
+     */
+    public function setLocator(LocatorInterface $locator)
+    {
+        $this->_locator = $locator;
+    }
+
+    /**
+     * @return LocatorInterface
+     */
+    public function getLocator()
+    {
+        return $this->_locator;
     }
 
 }

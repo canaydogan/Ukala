@@ -43,9 +43,8 @@ $moduleManager->loadModules();
 
 $config = $moduleManager->getEvent()->getConfigListener()->getMergedConfig()->toArray();
 
-
 $di = new \Zend\Di\Di;
-$di->instanceManager()->addTypePreference('Zend\Di\Locator', $di);
+$di->instanceManager()->addTypePreference('Zend\Di\LocatorInterface', $di);
 
 $config = new \Zend\Di\Configuration($config['di']);
 $config->configure($di);

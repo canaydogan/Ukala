@@ -180,4 +180,63 @@ class AnnotationLoaderTest extends TestCase
         $this->assertEquals('isPasswordConfirmed', $element->getName());
     }
 
+    public function testIsLocatorProxyValidValue()
+    {
+        $this->assertTrue($this->_annotationLoader->isLocatorProxy(
+            $this->newStandardLocatorProxy()
+        ));
+    }
+
+    public function testIsLocatorProxyInvalidValue()
+    {
+        $this->assertFalse($this->_annotationLoader->isLocatorProxy(
+            $this
+        ));
+    }
+
+    public function testAnnotationLoaderNoViaLocator()
+    {
+        $this->assertNull($this->_annotationLoader->getLocator());
+    }
+
+    public function testAnnotationLoaderViaLocator()
+    {
+        $annotationLoader = $this->getLocator()->get('ukala_loader');
+
+        $this->assertNotNull($annotationLoader->getLocator());
+        $this->assertSame($this->getLocator(), $annotationLoader->getLocator());
+    }
+
+    public function testElementForPropertyViaLocatorProxy()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->getLocator()->get('ukala_loader')->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['username'][0]->getElement();
+
+        $this->assertTrue($element->isReadable());
+        $this->assertTrue($element->isWritable());
+    }
+
+    public function testElementForMethodViaLocatorProxy()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->getLocator()->get('ukala_loader')->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['getUsername'][0]->getElement();
+
+        $this->assertTrue($element->isReadable());
+        $this->assertTrue($element->isWritable());
+    }
+
+    public function testFilterForClassViaLocatorProxy()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->getLocator()->get('ukala_loader')->loadClassMetadata($classMetadata);
+        $filters = $classMetadata->getFilters();
+
+        $this->assertCount(2, $filters);
+        $this->assertInstanceOf('Zend\Filter\Alnum', $filters[1]);
+    }
+
 }

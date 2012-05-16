@@ -12,7 +12,8 @@ use Zend\Validator\NotEmpty,
     Ukala\Element\Property,
     UkalaTest\Assets\Consultant\BasicConsultant,
     UkalaTest\Assets\Classes\AnnotatedClass2,
-    UkalaTest\Assets\Classes\AnnotatedClass3;
+    UkalaTest\Assets\Classes\AnnotatedClass3,
+    Ukala\LocatorProxy\StandardProxy;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -135,6 +136,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $annotatedClass3 = $this->newAnnotatedClass3();
 
         return $annotatedClass3;
+    }
+
+    public function newStandardLocatorProxy()
+    {
+        return new StandardProxy();
     }
 
 }
