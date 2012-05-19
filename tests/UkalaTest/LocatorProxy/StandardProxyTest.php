@@ -58,11 +58,11 @@ class StandardProxyTest extends TestCase
         $this->assertEquals('newInstance', $options['method']);
 
         $proxy->setOptions(array(
-            'value' => array('method' => 'newInstance')
+            'value' => array('method' => 'get')
         ));
         $options = $proxy->getOptions();
 
-        $this->assertEquals('newInstance', $options['method']);
+        $this->assertEquals('get', $options['method']);
     }
 
     public function testOptionsViaConstructor()

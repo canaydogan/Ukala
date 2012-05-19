@@ -80,6 +80,9 @@ class AnnotationLoader implements Loader
         return $loaded;
     }
 
+    /**
+     * @todo ozel test yaz.
+     */
     public function prepareMetadata($metadata, $value)
     {
         if ($this->isLocatorProxy($value)

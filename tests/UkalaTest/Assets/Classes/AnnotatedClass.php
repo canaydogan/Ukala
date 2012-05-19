@@ -77,6 +77,16 @@ class AnnotatedClass
     public $username;
 
     /**
+     * @var @Element\Property({"readable" = true})
+     */
+    protected $_valueForLoad;
+
+    public function __load()
+    {
+        $this->setValueForLoad('foo');
+    }
+
+    /**
      * @Validator\NotEmpty()
      * @return bool
      */
@@ -232,6 +242,22 @@ class AnnotatedClass
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * @param  $valueForLoad
+     */
+    public function setValueForLoad($valueForLoad)
+    {
+        $this->_valueForLoad = $valueForLoad;
+    }
+
+    /**
+     * @return
+     */
+    public function getValueForLoad()
+    {
+        return $this->_valueForLoad;
     }
 
 }

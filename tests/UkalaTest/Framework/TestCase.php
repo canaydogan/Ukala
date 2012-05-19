@@ -13,7 +13,8 @@ use Zend\Validator\NotEmpty,
     UkalaTest\Assets\Consultant\BasicConsultant,
     UkalaTest\Assets\Classes\AnnotatedClass2,
     UkalaTest\Assets\Classes\AnnotatedClass3,
-    Ukala\LocatorProxy\StandardProxy;
+    Ukala\LocatorProxy\StandardProxy,
+    UkalaTest\Assets\Classes\AnnotatedClassProxy;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -141,6 +142,25 @@ class TestCase extends \PHPUnit_Framework_TestCase
     public function newStandardLocatorProxy()
     {
         return new StandardProxy();
+    }
+
+    public function newAnnotatedClassProxy()
+    {
+        return new AnnotatedClassProxy();
+    }
+
+    public function newValidAnnotatedClassProxy()
+    {
+        $annotatedClass = $this->newAnnotatedClassProxy();
+
+        $annotatedClass->setName('Can Aydogan');
+        $annotatedClass->setEmail('canaydogan89@gmail.com');
+        $annotatedClass->setPassword('12345');
+        $annotatedClass->setConfirmPassword('12345');
+        $annotatedClass->setPhone('12345');
+        $annotatedClass->setCountry('Turkey');
+
+        return $annotatedClass;
     }
 
 }

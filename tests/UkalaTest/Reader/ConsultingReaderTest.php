@@ -166,4 +166,18 @@ class ConsultingReaderTest extends TestCase
         $this->assertTrue($cache->contains(get_class($object)));
     }
 
+    public function testReadWithProxyObject()
+    {
+        $object = $this->newValidAnnotatedClassProxy();
+        $result = $this->_reader->read($object);
+
+        $this->assertNotNull($result);
+        $this->assertEquals($object->getName(), $result['newName']);
+        $this->assertEquals($object->getEmail(), $result['email']);
+        $this->assertEquals(
+            $object->getDummyMixedString(),
+            $result['newGetDummyMixedString']
+        );
+    }
+
 }

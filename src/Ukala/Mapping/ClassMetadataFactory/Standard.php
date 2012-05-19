@@ -5,7 +5,8 @@ namespace Ukala\Mapping\ClassMetadataFactory;
 use Ukala\Mapping\ClassMetadataFactory,
     Ukala\Mapping\Loader,
     Ukala\Mapping\ClassMetadata,
-    Doctrine\Common\Cache\Cache;
+    Doctrine\Common\Cache\Cache,
+    Doctrine\ORM\Proxy\Proxy;
 
 class Standard implements ClassMetadataFactory
 {
@@ -35,6 +36,9 @@ class Standard implements ClassMetadataFactory
 
     public function getClassMetadata($class)
     {
+        if (is_object($class)) {
+            $class = $this->getClassName($class);
+        }
         if (isset($this->_loadedClasses[$class])) {
             return $this->_loadedClasses[$class];
         }
@@ -53,6 +57,21 @@ class Standard implements ClassMetadataFactory
         }
 
         return $this->_loadedClasses[$class];
+    }
+
+    public function getClassName($object)
+    {
+        if ($object instanceof Proxy) {
+            /**
+             * @todo buraya daha iyi bir cozum bul.(__load'u entity'lerin degerlerinin yuklenmesi icin kullandim)
+             */
+            if (method_exists($object, "__load")) {
+                $object->__load();
+            }
+            return get_parent_class($object);
+        }
+
+        return get_class($object);
     }
 
     /**

@@ -34,7 +34,7 @@ class ConsultingReader implements Reader, Consultant
         if (is_array($value)
             || $value instanceof Collection) {
             foreach ($value as $_value) {
-                $result[] = $this->read($_value);
+                $result[] = $this->_read($_value);
             }
         } else {
             $result = $this->_read($value);
@@ -46,8 +46,7 @@ class ConsultingReader implements Reader, Consultant
     protected function _read($value)
     {
         $result = array();
-        $className = get_class($value);
-        $metadata = $this->getClassMetadataFactory()->getClassMetadata($className);
+        $metadata = $this->getClassMetadataFactory()->getClassMetadata($value);
 
         if (!$metadata->getElement()->isReadable()
             || !$this->isAvailable($value, $metadata)) {
