@@ -1,4 +1,4 @@
-<phpunit bootstrap="./Bootstrap.php" colors="true">
+<phpunit bootstrap="./Bootstrap.php" colors="true" backupGlobals="false">
     <testsuites>
         <testsuite name="Ukala Test Suite">
             <directory>./</directory>

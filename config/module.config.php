@@ -1,6 +1,15 @@
 <?php
 return array(
     'di' => array(
+        'definition' => array(
+            'class' => array(
+                'Ukala\Mapping\Loader\AnnotationLoader' => array(
+                    'setLocator' => array(
+                        'required' => true
+                    )
+                ),
+            )
+        ),
         'instance' => array(
             'alias' => array(
                 'ukala_reader' => 'Doctrine\Common\Annotations\AnnotationReader',
