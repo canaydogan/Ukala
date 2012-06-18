@@ -1,6 +1,6 @@
-<phpunit bootstrap="./Bootstrap.php" colors="true" backupGlobals="false">
+<phpunit bootstrap="./bootstrap.php" colors="true" backupGlobals="false">
     <testsuites>
-        <testsuite name="Ukala Test Suite">
+        <testsuite name="FirstData Test Suite">
             <directory>./</directory>
         </testsuite>
     </testsuites>
