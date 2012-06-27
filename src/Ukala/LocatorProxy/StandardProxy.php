@@ -35,7 +35,6 @@ class StandardProxy implements LocatorProxy
     {
         $options = $this->getOptions();
         $result = null;
-
         if ('get' === $options['method']) {
             $result = $locator->get($options['name'], $options['params']);
         } elseif ('newInstance' === $options['method']) {
