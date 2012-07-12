@@ -44,8 +44,8 @@ class ObjectValidator implements ValidatorInterface
 
         foreach ($metadata->getMembers() as $member) {
             foreach ($member as $memberMetadata) {
-                $validators = $memberMetadata->getValidators();
                 $element = $memberMetadata->getElement();
+                $validators = $element->getValidators();
                 if (count($validators)) {
                     $_value = $memberMetadata->getValue($value);
 

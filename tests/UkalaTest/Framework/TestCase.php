@@ -81,6 +81,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $annotatedClass->setConfirmPassword('12345');
         $annotatedClass->setPhone('12345');
         $annotatedClass->setCountry('Turkey');
+        $annotatedClass->setValueForNewNaming('Foo');
 
         return $annotatedClass;
     }

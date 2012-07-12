@@ -15,8 +15,14 @@ abstract class AbstractMetadata
      */
     abstract public function newElement();
 
+    /**
+     * @var array
+     */
     protected $_validators = array();
 
+    /**
+     * @var array
+     */
     protected $_filters = array();
 
     /**
@@ -24,9 +30,14 @@ abstract class AbstractMetadata
      */
     protected $_element;
 
-    public function getValidators()
+    /**
+     * @var string
+     */
+    protected $_name;
+
+    public function hasValidators()
     {
-        return $this->_validators;
+        return count($this->_validators) > 0;
     }
 
     public function addValidator(ValidatorInterface $validator)
@@ -39,21 +50,6 @@ abstract class AbstractMetadata
         foreach ($validators as $validator) {
             $this->addValidator($validator);
         }
-    }
-
-    public function hasValidators()
-    {
-        return count($this->_validators) > 0;
-    }
-
-    public function setFilters($filters)
-    {
-        $this->_filters = $filters;
-    }
-
-    public function getFilters()
-    {
-        return $this->_filters;
     }
 
     public function addFilter(FilterInterface $filter)
@@ -90,6 +86,54 @@ abstract class AbstractMetadata
             $this->_element = $this->newElement();
         }
         return $this->_element;
+    }
+
+    /**
+     * @param array $filters
+     */
+    public function setFilters($filters)
+    {
+        $this->_filters = $filters;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilters()
+    {
+        return $this->_filters;
+    }
+
+    /**
+     * @param array $validators
+     */
+    public function setValidators($validators)
+    {
+        $this->_validators = $validators;
+    }
+
+    /**
+     * @return array
+     */
+    public function getValidators()
+    {
+        return $this->_validators;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->_name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->_name;
     }
 
 

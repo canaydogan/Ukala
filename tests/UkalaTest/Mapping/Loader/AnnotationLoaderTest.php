@@ -55,6 +55,14 @@ class AnnotationLoaderTest extends TestCase
         $this->assertEquals(1, count($classMetadata->getValidators()));
     }
 
+    public function testLoadClassMetadataWithClassValidatorsForElement()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $element = $classMetadata->getElement();
+        $this->assertEquals(1, count($element->getValidators()));
+    }
+
     public function testLoadClassMetadataWithPropertyValidators()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
@@ -64,6 +72,15 @@ class AnnotationLoaderTest extends TestCase
         $this->assertEquals(2, count($property->getValidators()));
     }
 
+    public function testLoadClassMetadataWithPropertyValidatorsForElement()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['email'][0]->getElement();
+        $this->assertEquals(2, count($element->getValidators()));
+    }
+
     public function testLoadClassMetadataForMethodValidators()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
@@ -71,6 +88,15 @@ class AnnotationLoaderTest extends TestCase
         $members = $classMetadata->getMembers();
         $method = $members['isPasswordConfirmed'][0];
         $this->assertEquals(1, count($method->getValidators()));
+    }
+
+    public function testLoadClassMetadataForMethodValidatorsForElement()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['isPasswordConfirmed'][0]->getElement();
+        $this->assertEquals(1, count($element->getValidators()));
     }
 
     public function testIsFilterWithInvalidValue()
@@ -93,6 +119,14 @@ class AnnotationLoaderTest extends TestCase
         $this->assertEquals(1, count($classMetadata->getFilters()));
     }
 
+    public function testLoadClassMetadataWithClassFiltersForElement()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $element = $classMetadata->getElement();
+        $this->assertEquals(1, count($element->getFilters()));
+    }
+
     public function testLoadClassMetadataWithPropertyFilters()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
@@ -102,6 +136,15 @@ class AnnotationLoaderTest extends TestCase
         $this->assertCount(1, $property->getFilters());
     }
 
+    public function testLoadClassMetadataWithPropertyFiltersForElement()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['_name'][0]->getElement();
+        $this->assertCount(1, $element->getFilters());
+    }
+
     public function testLoadClassMetadataWithMethodFilters()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
@@ -109,6 +152,15 @@ class AnnotationLoaderTest extends TestCase
         $members = $classMetadata->getMembers();
         $method = $members['getDummyMixedString'][0];
         $this->assertCount(1, $method->getFilters());
+    }
+
+    public function testLoadClassMetadataWithMethodFiltersForElement()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['getDummyMixedString'][0]->getElement();
+        $this->assertCount(1, $element->getFilters());
     }
 
     public function testIsElementWithInvalidElement()
@@ -161,6 +213,19 @@ class AnnotationLoaderTest extends TestCase
 
         $element = $members['email'][0]->getElement();
         $this->assertEquals('email', $element->getName());
+    }
+
+    public function testElementWithPropertyForNewNaming()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['_valueForNewNaming'][0]->getElement();
+
+        $this->assertTrue($element->isReadable());
+        $this->assertTrue($element->isWritable());
+        $this->assertTrue($element->isRequired());
+        $this->assertEquals('valueForNewNaming', $element->getName());
     }
 
     public function testElementForMethod()

@@ -15,6 +15,29 @@ class AbstractMetadataTest extends TestCase
         );
     }
 
+    public function testGetterForDefaultValues()
+    {
+        $this->assertInternalType('array', $this->_abstractMetadata->getValidators());
+        $this->assertInternalType('array', $this->_abstractMetadata->getFilters());
+    }
+
+    public function testSetterAndGetter()
+    {
+        $validators = array($this->getNotEmptyValidator());
+        $filters = array($this->getIntFilter());
+        $element  = $this->newPropertyElement();
+
+        $this->_abstractMetadata->setValidators($validators);
+        $this->_abstractMetadata->setFilters($filters);
+        $this->_abstractMetadata->setElement($element);
+        $this->_abstractMetadata->setName('name');
+
+        $this->assertSame($validators, $this->_abstractMetadata->getValidators());
+        $this->assertSame($filters, $this->_abstractMetadata->getFilters());
+        $this->assertSame($element, $this->_abstractMetadata->getElement());
+        $this->assertEquals('name', $this->_abstractMetadata->getName());
+    }
+
     public function testAddValidator()
     {
         $validator = $this->getNotEmptyValidator();

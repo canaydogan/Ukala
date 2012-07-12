@@ -33,7 +33,7 @@ class ObjectFilter implements FilterInterface
 
         foreach ($metadata->getMembers() as $member) {
             foreach ($member as $memberMetadata) {
-                foreach ($memberMetadata->getFilters() as $filter) {
+                foreach ($memberMetadata->getElement()->getFilters() as $filter) {
                     $memberMetadata->setValue(
                         $value,
                         $filter->filter($memberMetadata->getValue($value))

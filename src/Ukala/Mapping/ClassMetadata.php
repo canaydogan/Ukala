@@ -25,61 +25,9 @@ class ClassMetadata extends AbstractMetadata
      */
     protected $_members = array();
 
-    public function __construct($className)
+    public function __construct($name)
     {
-        $this->setClassName($className);
-    }
-
-    /**
-     * @param string $className
-     */
-    public function setClassName($className)
-    {
-        $this->_className = $className;
-    }
-
-    /**
-     * @return string
-     */
-    public function getClassName()
-    {
-        return $this->_className;
-    }
-
-    /**
-     * @param ReflectionClass $reflectionClass
-     */
-    public function setReflectionClass(ReflectionClass $reflectionClass)
-    {
-        $this->_reflectionClass = $reflectionClass;
-    }
-
-    /**
-     * @return ReflectionClass
-     */
-    public function getReflectionClass()
-    {
-        if (null === $this->_reflectionClass) {
-            $this->_reflectionClass = new ReflectionClass($this->getClassName());
-        }
-
-        return $this->_reflectionClass;
-    }
-
-    /**
-     * @param array $members
-     */
-    public function setMembers(array $members)
-    {
-        $this->_members = $members;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMembers()
-    {
-        return $this->_members;
+        $this->setName($name);
     }
 
     public function addMemberMetadata(AbstractMemberMetadata $metadata)
@@ -106,6 +54,42 @@ class ClassMetadata extends AbstractMetadata
     public function newElement()
     {
         return new Clazz();
+    }
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     */
+    public function setReflectionClass(ReflectionClass $reflectionClass)
+    {
+        $this->_reflectionClass = $reflectionClass;
+    }
+
+    /**
+     * @return ReflectionClass
+     */
+    public function getReflectionClass()
+    {
+        if (null === $this->_reflectionClass) {
+            $this->_reflectionClass = new ReflectionClass($this->getName());
+        }
+
+        return $this->_reflectionClass;
+    }
+
+    /**
+     * @param array $members
+     */
+    public function setMembers(array $members)
+    {
+        $this->_members = $members;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMembers()
+    {
+        return $this->_members;
     }
 
 

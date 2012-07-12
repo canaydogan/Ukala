@@ -25,6 +25,16 @@ abstract class AbstractElement
      */
     protected $_name;
 
+    /**
+     * @var array
+     */
+    protected $_validators = array();
+
+    /**
+     * @var array
+     */
+    protected $_filters = array();
+
     public function __construct($options = null)
     {
         if (isset($options['value'])) {
@@ -68,6 +78,16 @@ abstract class AbstractElement
         return $this->_writable;
     }
 
+    public function addValidator($validator)
+    {
+        $this->_validators[] = $validator;
+    }
+
+    public function addFilter($filter)
+    {
+        $this->_filters[] = $filter;
+    }
+
     /**
      * @param boolean $readable
      */
@@ -106,6 +126,38 @@ abstract class AbstractElement
     public function getName()
     {
         return $this->_name;
+    }
+
+    /**
+     * @param array $filters
+     */
+    public function setFilters($filters)
+    {
+        $this->_filters = $filters;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilters()
+    {
+        return $this->_filters;
+    }
+
+    /**
+     * @param array $validators
+     */
+    public function setValidators($validators)
+    {
+        $this->_validators = $validators;
+    }
+
+    /**
+     * @return array
+     */
+    public function getValidators()
+    {
+        return $this->_validators;
     }
 
 

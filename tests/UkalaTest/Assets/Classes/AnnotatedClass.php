@@ -77,9 +77,14 @@ class AnnotatedClass
     public $username;
 
     /**
-     * @var @Element\Property({"readable" = true})
+     * @Element\Property({"readable" = true})
      */
     protected $_valueForLoad;
+
+    /**
+     * @Element\Property(name = "valueForNewNaming", readable = true, writable = true, required = true);
+     */
+    protected $_valueForNewNaming;
 
     public function __load()
     {
@@ -258,6 +263,16 @@ class AnnotatedClass
     public function getValueForLoad()
     {
         return $this->_valueForLoad;
+    }
+
+    public function setValueForNewNaming($valueForNewNaming)
+    {
+        $this->_valueForNewNaming = $valueForNewNaming;
+    }
+
+    public function getValueForNewNaming()
+    {
+        return $this->_valueForNewNaming;
     }
 
 }

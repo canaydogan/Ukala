@@ -39,7 +39,7 @@ class AnnotationLoader implements Loader
     public function loadClassMetadata(ClassMetadata $metadata)
     {
         $reflectionClass = $metadata->getReflectionClass();
-        $className = $metadata->getClassName();
+        $className = $metadata->getName();
         $loaded = false;
 
         foreach ($this->getReader()->getClassAnnotations($reflectionClass) as $value) {
@@ -65,19 +65,41 @@ class AnnotationLoader implements Loader
             }
         }
 
-        if (null === $metadata->getElement()->getName()) {
-            $metadata->getElement()->setName($metadata->getClassName());
+        $this->prepareElements($metadata);
+
+        return $loaded;
+    }
+
+    /**
+     * @todo ozel test yaz.
+     */
+    public function prepareElement($element, $metadata)
+    {
+        if (null === $element->getName()) {
+            $element->setName($metadata->getName());
         }
+
+        foreach ($metadata->getFilters() as $validator) {
+            $element->addFilter($validator);
+        }
+
+        foreach ($metadata->getValidators() as $validator) {
+            $element->addValidator($validator);
+        }
+    }
+
+    /**
+     * @todo ozel test yaz.
+     */
+    public function prepareElements($metadata)
+    {
+        $this->prepareElement($metadata->getElement(), $metadata);
 
         foreach ($metadata->getMembers() as $member) {
             foreach ($member as $metadata) {
-                if (null === $metadata->getElement()->getName()) {
-                    $metadata->getElement()->setName($metadata->getName());
-                }
+                $this->prepareElement($metadata->getElement(), $metadata);
             }
         }
-
-        return $loaded;
     }
 
     /**
