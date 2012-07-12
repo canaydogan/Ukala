@@ -72,6 +72,15 @@ class AnnotationLoaderTest extends TestCase
         $this->assertEquals(2, count($property->getValidators()));
     }
 
+    public function testLoadClassMetadataWithPropertyValidatorsViaElement()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['_valueForNewNaming'][0];
+        $this->assertEquals(1, count($element->getElement()->getFilters()));
+    }
+
     public function testLoadClassMetadataWithPropertyValidatorsForElement()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
@@ -134,6 +143,15 @@ class AnnotationLoaderTest extends TestCase
         $members = $classMetadata->getMembers();
         $property = $members['_name'][0];
         $this->assertCount(1, $property->getFilters());
+    }
+
+    public function testLoadClassMetadataWithPropertyFiltersViaElement()
+    {
+        $classMetadata = $this->getAnnotatedClassMetadata();
+        $this->_annotationLoader->loadClassMetadata($classMetadata);
+        $members = $classMetadata->getMembers();
+        $element = $members['_valueForNewNaming'][0]->getElement();
+        $this->assertCount(1, $element->getFilters());
     }
 
     public function testLoadClassMetadataWithPropertyFiltersForElement()

@@ -104,4 +104,15 @@ class ObjectFilterTest extends TestCase
         $this->assertTrue($cache->contains(get_class($this->_annotatedCLass)));
     }
 
+    public function testFilterForValueForNewNamingWithNeedFilterValue()
+    {
+        $this->_annotatedCLass->setValueForNewNaming('can');
+        $this->_filter->filter($this->_annotatedCLass);
+
+        $this->assertEquals(
+            'CAN',
+            $this->_annotatedCLass->getValueForNewNaming()
+        );
+    }
+
 }

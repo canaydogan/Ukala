@@ -82,7 +82,14 @@ class AnnotatedClass
     protected $_valueForLoad;
 
     /**
-     * @Element\Property(name = "valueForNewNaming", readable = true, writable = true, required = true);
+     * @Element\Property(
+     *  name = "valueForNewNaming",
+     *  readable = true,
+     *  writable = true,
+     *  required = true,
+     *  validators = {@Validator\StringLength(min = 5)},
+     *  filters = {@Filter\StringToUpper()}
+     * );
      */
     protected $_valueForNewNaming;
 

@@ -39,7 +39,9 @@ abstract class AbstractElement extends TestCase
                 'required' => true,
                 'readable' => true,
                 'writable' => true,
-                'name' => 'name'
+                'name' => 'name',
+                'validators' => array($this->getNotEmptyValidator()),
+                'filters' => array($this->getIntFilter())
             )
         );
 
@@ -49,6 +51,8 @@ abstract class AbstractElement extends TestCase
         $this->assertTrue($element->isReadable());
         $this->assertTrue($element->isWritable());
         $this->assertEquals('name', $element->getName());
+        $this->assertSame($options['value']['validators'], $element->getValidators());
+        $this->assertSame($options['value']['filters'], $element->getFilters());
     }
 
 }

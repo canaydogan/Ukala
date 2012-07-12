@@ -187,4 +187,18 @@ class ObjectValidatorTest extends TestCase
         $this->assertTrue($this->_validator->isValid($validObject));
     }
 
+    public function testIsValidWithInvalidValueForNewNamingViaElementValidators()
+    {
+        $object = $this->getAnnotatedClassWithValidValues();
+
+        $object->setValueForNewNaming(null);
+        $this->assertFalse($this->_validator->isValid($object));
+
+        $object->setValueForNewNaming('');
+        $this->assertFalse($this->_validator->isValid($object));
+
+        $object->setValueForNewNaming('a');
+        $this->assertFalse($this->_validator->isValid($object));
+    }
+
 }

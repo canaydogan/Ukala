@@ -61,6 +61,12 @@ abstract class AbstractElement
         if (isset($options['name'])) {
             $this->setName($options['name']);
         }
+        if (isset($options['validators'])) {
+            $this->setValidators($options['validators']);
+        }
+        if (isset($options['filters'])) {
+            $this->setFilters($options['filters']);
+        }
     }
 
     public function isRequired()
