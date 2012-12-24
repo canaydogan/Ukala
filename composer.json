@@ -1,6 +1,7 @@
 {
     "name": "canaydogan/ukala",
     "description": "Validation, Filtering, Reading and Writing Objects via Annotation",
+    "license": "MIT",
     "authors": [
         {
             "name": "Can Aydogan",
