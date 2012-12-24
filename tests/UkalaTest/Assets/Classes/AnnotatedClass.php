@@ -89,7 +89,7 @@ class AnnotatedClass
      *  required = true,
      *  validators = {@Validator\StringLength(min = 5)},
      *  filters = {@Filter\StringToUpper()}
-     * );
+     * )
      */
     protected $_valueForNewNaming;
 
