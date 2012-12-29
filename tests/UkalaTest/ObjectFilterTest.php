@@ -36,7 +36,7 @@ class ObjectFilterTest extends TestCase
 
     public function testFilterForNameWithNeedFilterValue()
     {
-        $this->_annotatedCLass->setName('1234can');
+        $this->_annotatedCLass->setName('CAN');
         $this->_filter->filter($this->_annotatedCLass);
 
         $this->assertEquals(
@@ -59,7 +59,7 @@ class ObjectFilterTest extends TestCase
 
     public function testFilterForGetDummyMixedStringWithNeedNeedFilterValue()
     {
-        $this->_annotatedCLass->getDummyMixedString('can1234');
+        $this->_annotatedCLass->getDummyMixedString('CAN');
         $this->_filter->filter($this->_annotatedCLass);
 
         $this->assertEquals(
@@ -70,7 +70,7 @@ class ObjectFilterTest extends TestCase
 
     public function testFilterByLocatorWithNoNeedFilterValue()
     {
-        $filter = $this->getLocator()->get('object_filter');
+        $filter = $this->getServiceManager()->get('object_filter');
 
         $this->_annotatedCLass->getDummyMixedString('can');
         $filter->filter($this->_annotatedCLass);
@@ -83,9 +83,9 @@ class ObjectFilterTest extends TestCase
 
     public function testFilterByLocatorWithNeedFilterValue()
     {
-        $filter = $this->getLocator()->get('object_filter');
+        $filter = $this->getServiceManager()->get('object_filter');
 
-        $this->_annotatedCLass->getDummyMixedString('can1234');
+        $this->_annotatedCLass->getDummyMixedString('CAN');
         $filter->filter($this->_annotatedCLass);
 
         $this->assertEquals(
@@ -96,8 +96,8 @@ class ObjectFilterTest extends TestCase
 
     public function testFilterForLocatorCache()
     {
-        $filter = $this->getLocator()->get('object_filter');
-        $cache = $this->getLocator()->get('ukala_cache');
+        $filter = $this->getServiceManager()->get('object_filter');
+        $cache = $this->getServiceManager()->get('ukala_cache');
 
         $filter->filter($this->_annotatedCLass);
 

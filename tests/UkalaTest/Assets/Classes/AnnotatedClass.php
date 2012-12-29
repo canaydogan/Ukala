@@ -11,8 +11,8 @@ use Ukala\Validator AS Validator,
  * @Validator\NotEmpty()
  * @Filter\Int()
  * @Element\Clazz({"readable" = true, "writable" = true, "name" = "className"})
- * @LocatorProxy\StandardProxy({
- *  "name" = "Zend\Filter\Alnum"
+ * @LocatorProxy\ServiceLocatorProxy({
+ *  "name" = "Zend\I18n\Filter\Alnum"
  * })
  */
 class AnnotatedClass
@@ -20,7 +20,7 @@ class AnnotatedClass
 
     /**
      * @Validator\NotEmpty()
-     * @Filter\Alpha();
+     * @Filter\StringToLower();
      * @Element\Property({"required" = true, "readable" = true, "writable" = true, "name" = "newName"})
      * @var string
      */
@@ -67,9 +67,8 @@ class AnnotatedClass
     public $annotatedClass;
 
     /**
-     * @LocatorProxy\StandardProxy({
+     * @LocatorProxy\ServiceLocatorProxy({
      *  "name" = "Ukala\Element\Property",
-     *  "method" = "newInstance",
      *  "params" = {"readable" = true, "writable" = true}
      * })
      * @var string
@@ -112,7 +111,7 @@ class AnnotatedClass
     }
 
     /**
-     * @Filter\Alpha()
+     * @Filter\StringToLower()
      * @Element\Method({"readable" = true, "name" = "newGetDummyMixedString"})
      */
     public function getDummyMixedString($value = null)
@@ -244,9 +243,8 @@ class AnnotatedClass
     }
 
     /**
-     * @LocatorProxy\StandardProxy({
+     * @LocatorProxy\ServiceLocatorProxy({
      *  "name" = "Ukala\Element\Method",
-     *  "method" = "newInstance",
      *  "params" = {"readable" = true, "writable" = true}
      * })
      * @return string

@@ -263,37 +263,37 @@ class AnnotationLoaderTest extends TestCase
         $this->assertEquals('isPasswordConfirmed', $element->getName());
     }
 
-    public function testIsLocatorProxyValidValue()
+    public function testIsServiceLocatorProxyValidValue()
     {
-        $this->assertTrue($this->_annotationLoader->isLocatorProxy(
+        $this->assertTrue($this->_annotationLoader->isServiceLocatorProxy(
             $this->newStandardLocatorProxy()
         ));
     }
 
-    public function testIsLocatorProxyInvalidValue()
+    public function testIsServiceLocatorProxyInvalidValue()
     {
-        $this->assertFalse($this->_annotationLoader->isLocatorProxy(
+        $this->assertFalse($this->_annotationLoader->isServiceLocatorProxy(
             $this
         ));
     }
 
-    public function testAnnotationLoaderNoViaLocator()
+    public function testAnnotationLoaderNoViaServiceLocator()
     {
-        $this->assertNull($this->_annotationLoader->getLocator());
+        $this->assertNull($this->_annotationLoader->getServiceLocator());
     }
 
-    public function testAnnotationLoaderViaLocator()
+    public function testAnnotationLoaderViaServiceLocator()
     {
-        $annotationLoader = $this->getLocator()->get('ukala_loader');
+        $annotationLoader = $this->getServiceManager()->get('ukala_loader');
 
-        $this->assertNotNull($annotationLoader->getLocator());
-        $this->assertSame($this->getLocator(), $annotationLoader->getLocator());
+        $this->assertNotNull($annotationLoader->getServiceLocator());
+        $this->assertSame($this->getServiceManager(), $annotationLoader->getServiceLocator());
     }
 
     public function testElementForPropertyViaLocatorProxy()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
-        $this->getLocator()->get('ukala_loader')->loadClassMetadata($classMetadata);
+        $this->getServiceManager()->get('ukala_loader')->loadClassMetadata($classMetadata);
         $members = $classMetadata->getMembers();
         $element = $members['username'][0]->getElement();
 
@@ -304,7 +304,7 @@ class AnnotationLoaderTest extends TestCase
     public function testElementForMethodViaLocatorProxy()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
-        $this->getLocator()->get('ukala_loader')->loadClassMetadata($classMetadata);
+        $this->getServiceManager()->get('ukala_loader')->loadClassMetadata($classMetadata);
         $members = $classMetadata->getMembers();
         $element = $members['getUsername'][0]->getElement();
 
@@ -315,11 +315,11 @@ class AnnotationLoaderTest extends TestCase
     public function testFilterForClassViaLocatorProxy()
     {
         $classMetadata = $this->getAnnotatedClassMetadata();
-        $this->getLocator()->get('ukala_loader')->loadClassMetadata($classMetadata);
+        $this->getServiceManager()->get('ukala_loader')->loadClassMetadata($classMetadata);
         $filters = $classMetadata->getFilters();
 
         $this->assertCount(2, $filters);
-        $this->assertInstanceOf('Zend\Filter\Alnum', $filters[1]);
+        $this->assertInstanceOf('Zend\I18n\Filter\Alnum', $filters[1]);
     }
 
 }

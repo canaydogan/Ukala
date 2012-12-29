@@ -90,7 +90,7 @@ class ConsultingWriterTest extends TestCase
 
     public function testReadWithLocator()
     {
-        $writer = $this->getLocator()->get('object_writer');
+        $writer = $this->getServiceManager()->get('object_writer');
         $object = $this->getAnnotatedClass();
         $values = array(
             'newName' => 'Can Aydogan',
@@ -108,8 +108,8 @@ class ConsultingWriterTest extends TestCase
     {
         $object = $this->getAnnotatedClass();
 
-        $writer = $this->getLocator()->get('object_writer');
-        $cache = $this->getLocator()->get('ukala_cache');
+        $writer = $this->getServiceManager()->get('object_writer');
+        $cache = $this->getServiceManager()->get('ukala_cache');
 
         $writer->write(array(), $object);
 

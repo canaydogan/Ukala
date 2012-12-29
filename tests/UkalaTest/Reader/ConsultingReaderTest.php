@@ -141,7 +141,7 @@ class ConsultingReaderTest extends TestCase
     {
         $object = $this->getAnnotatedClassWithValidValues();
 
-        $reader = $this->getLocator()->get('object_reader');
+        $reader = $this->getServiceManager()->get('object_reader');
 
         $result = $this->_reader->read($object);
 
@@ -158,8 +158,8 @@ class ConsultingReaderTest extends TestCase
     {
         $object = $this->getAnnotatedClassWithValidValues();
 
-        $reader = $this->getLocator()->get('object_reader');
-        $cache = $this->getLocator()->get('ukala_cache');
+        $reader = $this->getServiceManager()->get('object_reader');
+        $cache = $this->getServiceManager()->get('ukala_cache');
 
         $reader->read($object);
 

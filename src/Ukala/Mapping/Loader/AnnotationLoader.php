@@ -11,8 +11,8 @@ use Ukala\Mapping\Loader,
     Zend\Validator\ValidatorInterface,
     Zend\Filter\FilterInterface,
     Ukala\Element\AbstractElement,
-    Ukala\LocatorProxy\LocatorProxy,
-    Zend\Di\LocatorInterface;
+    Ukala\LocatorProxy\ServiceLocatorProxy,
+    Zend\ServiceManager\ServiceLocatorInterface;
 
 class AnnotationLoader implements Loader
 {
@@ -23,9 +23,9 @@ class AnnotationLoader implements Loader
     protected $_reader;
 
     /**
-     * @var LocatorInterface
+     * @var ServiceLocatorInterface
      */
-    protected $_locator;
+    protected $_serviceLocator;
 
     public function __construct(Reader $reader)
     {
@@ -107,9 +107,9 @@ class AnnotationLoader implements Loader
      */
     public function prepareMetadata($metadata, $value)
     {
-        if ($this->isLocatorProxy($value)
-            && null !== $this->getLocator()) {
-            $value = $value->doProxy($this->getLocator());
+        if ($this->isServiceLocatorProxy($value)
+            && null !== $this->getServiceLocator()) {
+            $value = $value->doProxy($this->getServiceLocator());
         }
         if ($this->isValidator($value)) {
             $metadata->addValidator($value);
@@ -155,25 +155,25 @@ class AnnotationLoader implements Loader
         return $value instanceof AbstractElement;
     }
 
-    public function isLocatorProxy($value)
+    public function isServiceLocatorProxy($value)
     {
-        return $value instanceof LocatorProxy;
+        return $value instanceof ServiceLocatorProxy;
     }
 
     /**
-     * @param LocatorInterface $locator
+     * @param ServiceLocatorInterface $locator
      */
-    public function setLocator(LocatorInterface $locator)
+    public function setServiceLocator(ServiceLocatorInterface $locator)
     {
-        $this->_locator = $locator;
+        $this->_serviceLocator = $locator;
     }
 
     /**
-     * @return LocatorInterface
+     * @return ServiceLocatorInterface
      */
-    public function getLocator()
+    public function getServiceLocator()
     {
-        return $this->_locator;
+        return $this->_serviceLocator;
     }
 
 }

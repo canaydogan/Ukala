@@ -13,13 +13,12 @@ use Zend\Validator\NotEmpty,
     UkalaTest\Assets\Consultant\BasicConsultant,
     UkalaTest\Assets\Classes\AnnotatedClass2,
     UkalaTest\Assets\Classes\AnnotatedClass3,
-    Ukala\LocatorProxy\StandardProxy,
-    UkalaTest\Assets\Classes\AnnotatedClassProxy;
+    Ukala\LocatorProxy\ServiceLocatorProxy,
+    UkalaTest\Assets\Classes\AnnotatedClassProxy,
+    UkalaTest\Bootstrap;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
-
-    public static $locator;
 
     public function getNotEmptyValidator()
     {
@@ -86,14 +85,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
         return $annotatedClass;
     }
 
-    public static function setLocator($locator)
+    public static function getServiceManager()
     {
-        self::$locator = $locator;
-    }
-
-    public static function getLocator()
-    {
-        return self::$locator;
+        return Bootstrap::getServiceManager();
     }
 
     /**
@@ -142,7 +136,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
     public function newStandardLocatorProxy()
     {
-        return new StandardProxy();
+        return new ServiceLocatorProxy();
     }
 
     public function newAnnotatedClassProxy()

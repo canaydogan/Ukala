@@ -122,7 +122,7 @@ class ObjectValidatorTest extends TestCase
     {
         $validObject = $this->getAnnotatedClassWithValidValues();
 
-        $validator = $this->getLocator()->get('object_validator');
+        $validator = $this->getServiceManager()->get('object_validator');
         $this->assertTrue($validator->isValid($validObject));
         $this->assertEquals(0, count($validator->getMessages()));
     }
@@ -131,8 +131,8 @@ class ObjectValidatorTest extends TestCase
     {
         $validObject = $this->getAnnotatedClassWithValidValues();
 
-        $validator = $this->getLocator()->get('object_validator');
-        $cache = $this->getLocator()->get('ukala_cache');
+        $validator = $this->getServiceManager()->get('object_validator');
+        $cache = $this->getServiceManager()->get('ukala_cache');
 
         $this->assertTrue($validator->isValid($validObject));
 
