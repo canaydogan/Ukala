@@ -21,8 +21,8 @@ class Bootstrap
     public static function init()
     {
         // Load the user-defined test configuration file, if it exists; otherwise, load
-        if (is_readable(__DIR__ . '/TestConfig.php')) {
-            $testConfig = include __DIR__ . '/TestConfig.php';
+        if (is_readable(__DIR__ . '/config/test.config.php')) {
+            $testConfig = include __DIR__ . '/config/test.config.php';
         } else {
             $testConfig = include __DIR__ . '/TestConfig.php.dist';
         }
@@ -55,17 +55,6 @@ class Bootstrap
         $serviceManager = new ServiceManager(new ServiceManagerConfig());
         $serviceManager->setService('ApplicationConfig', $config);
         $serviceManager->get('ModuleManager')->loadModules();
-
-        /**
-         * Testlerde kullanılan instance'ları manager'a ekleme.
-         */
-        foreach (array(
-             'Zend\I18n\Filter\Alnum' => 'Zend\I18n\Filter\Alnum',
-             'Ukala\Element\Property' => 'Ukala\Element\Property',
-             'Ukala\Element\Method' => 'Ukala\Element\Method'
-         ) as $name => $instance) {
-            $serviceManager->setInvokableClass($name, $instance);
-        }
 
         static::$serviceManager = $serviceManager;
         static::$config = $config;
